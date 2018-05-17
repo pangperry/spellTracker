@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const teachers = require("./routes/api/teachers");
+const students = require("./routes/api/students");
+const words = require("./routes/api/words");
+const soundItems = require("./routes/api/soundItems");
+
 const app = express();
 
 // DB Config
@@ -11,6 +16,11 @@ mongoose
   .catch(err => console.log(err));
 
 app.get("/", (req, res) => res.send("Hello"));
+
+app.use("/api/teachers", teachers);
+app.use("/api/students", students);
+app.use("/api/words", words);
+app.use("/api/sound-items", soundItems);
 
 const port = process.env.PORT || 5000;
 
