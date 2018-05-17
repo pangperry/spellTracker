@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const teachers = require("./routes/api/teachers");
 const students = require("./routes/api/students");
@@ -7,6 +8,10 @@ const words = require("./routes/api/words");
 const soundItems = require("./routes/api/soundItems");
 
 const app = express();
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // DB Config
 const db = require("./config/keys").mongoURI;
