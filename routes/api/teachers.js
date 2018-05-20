@@ -14,7 +14,7 @@ const Teacher = require("../../models/Teacher");
 // @route   GET api/teachers/test
 // @descr   Tests teachers route
 // @access  Public
-router.get("/test", (req, res) => res.json({ soundItems: seedSoundItems }));
+router.get("/test", (req, res) => res.json({ msg: "test is working" }));
 
 // @route   GET api/teachers/register
 // @descr   Register teacher

@@ -6,7 +6,6 @@ const passport = require("passport");
 const teachers = require("./routes/api/teachers");
 const students = require("./routes/api/students");
 const words = require("./routes/api/words");
-const soundItems = require("./routes/api/soundItems");
 
 const app = express();
 
@@ -30,7 +29,6 @@ require("./config/passport")(passport);
 app.use("/api/teachers", teachers);
 app.use("/api/students", students);
 app.use("/api/words", words);
-app.use("/api/sound-items", soundItems);
 
 const port = process.env.PORT || 5000;
 
