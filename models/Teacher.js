@@ -18,7 +18,37 @@ const TeacherSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  soundItems: [
+    new Schema({
+      category: {
+        type: String,
+        required: true
+      },
+      subcategory: {
+        type: String
+      },
+      sound: {
+        type: String
+      },
+      spelling: {
+        type: String
+      },
+      keyword: {
+        type: String
+      },
+      level: {
+        type: String
+      },
+      syllableType: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    })
+  ]
 });
 
 module.exports = Teacher = mongoose.model("teachers", TeacherSchema);

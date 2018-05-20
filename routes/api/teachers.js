@@ -5,13 +5,16 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
+// Load sounditems from seed for now
+const seedSoundItems = require("../../seed/soundItems");
+
 // Load Teacher model
 const Teacher = require("../../models/Teacher");
 
 // @route   GET api/teachers/test
 // @descr   Tests teachers route
 // @access  Public
-router.get("/test", (req, res) => res.json({ msg: "Teachers works" }));
+router.get("/test", (req, res) => res.json({ soundItems: seedSoundItems }));
 
 // @route   GET api/teachers/register
 // @descr   Register teacher
@@ -24,7 +27,8 @@ router.post("/register", (req, res) => {
       const newTeacher = new Teacher({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        soundItems: seedSoundItems
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -67,7 +71,6 @@ router.post("/login", (req, res) => {
             });
           }
         );
-        // res.json({ msg: "Success" });
       } else {
         return res.status(400).json({ password: "Password incorrect" });
       }
@@ -85,7 +88,8 @@ router.get(
     return res.json({
       id: req.user.id,
       name: req.user.name,
-      email: req.user.email
+      email: req.user.email,
+      soundItems: req.user.soundItems
     });
   }
 );
