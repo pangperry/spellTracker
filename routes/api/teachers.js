@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
-// Load sounditems from seed for now
+// sounditems from seed
 const seedSoundItems = require("../../seed/soundItems");
 
 // Load Teacher model
@@ -28,7 +28,11 @@ router.post("/register", (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        soundItems: seedSoundItems
+        soundItems: []
+      });
+      // load all of the sounditems
+      seedSoundItems.forEach(item => {
+        newTeacher.soundItems.push(item);
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -88,8 +92,8 @@ router.get(
     return res.json({
       id: req.user.id,
       name: req.user.name,
-      email: req.user.email,
-      soundItems: req.user.soundItems
+      email: req.user.email
+      // soundItems: req.user.soundItems
     });
   }
 );
