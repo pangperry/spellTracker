@@ -48,6 +48,13 @@ const TeacherSchema = new Schema({
         default: Date.now
       }
     })
+  ],
+  students: [
+    new Schema({
+      name: {
+        type: String
+      }
+    })
   ]
 });
 

@@ -30,6 +30,7 @@ router.post("/register", (req, res) => {
         password: req.body.password,
         soundItems: []
       });
+
       // load all of the sounditems
       seedSoundItems.forEach(item => {
         newTeacher.soundItems.push(item);
@@ -67,7 +68,7 @@ router.post("/login", (req, res) => {
         jwt.sign(
           payload,
           keys.secretOrKey,
-          { expiresIn: 3600 },
+          { expiresIn: 36000 },
           (err, token) => {
             res.json({
               success: true,
@@ -93,8 +94,49 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email
-      // soundItems: req.user.soundItems
     });
   }
 );
+
+// @route   POST api/teachers/student
+// @descr   Add student to teacher
+// @access  Private
+router.post(
+  "/student",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findById(req.user._id).then(teacher => {
+      teacher.students.push({ name: req.body.name });
+      teacher
+        .save()
+        .then(teacher => {
+          return res.json(teacher);
+        })
+        .catch(err => console.log(err));
+    });
+  }
+);
+
+// @route   DELETE api/teachers/student
+// @descr   DELETE student from teacher
+// @access  Private
+router.delete(
+  "/student/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findById(req.user._id).then(teacher => {
+      const index = teacher.students
+        .map(student => student.id)
+        .indexOf(req.params.id);
+      teacher.students.splice(index, 1);
+      teacher
+        .save()
+        .then(teacher => res.json(teacher))
+        .catch(err => console.log(err));
+    });
+  }
+);
+
+//TODO: add validations for teachers/students -- at min, student names should be unique
+//TODO: delete teacher
 module.exports = router;
