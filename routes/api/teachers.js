@@ -7,6 +7,7 @@ const passport = require("passport");
 
 // Load Input validation
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // sounditems from seed
 const seedSoundItems = require("../../seed/soundItems");
@@ -23,7 +24,6 @@ router.get("/test", (req, res) => res.json({ msg: "test is working" }));
 // @descr   Register teacher
 // @access  Public
 router.post("/register", (req, res) => {
-  console.log(validateRegisterInput(req.body));
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -64,6 +64,12 @@ router.post("/register", (req, res) => {
 // @descr   Register login
 // @access  Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
