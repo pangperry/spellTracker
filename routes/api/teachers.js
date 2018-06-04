@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
+// Load Input validation
+const validateRegisterInput = require("../../validation/register");
+
 // sounditems from seed
 const seedSoundItems = require("../../seed/soundItems");
 
@@ -20,6 +23,13 @@ router.get("/test", (req, res) => res.json({ msg: "test is working" }));
 // @descr   Register teacher
 // @access  Public
 router.post("/register", (req, res) => {
+  console.log(validateRegisterInput(req.body));
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   Teacher.findOne({ email: req.body.email }).then(teacher => {
     if (teacher) {
       return res.status(400).json({ email: "Email already exists" });
