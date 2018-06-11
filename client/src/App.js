@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/layout/Header";
 import Navbar from "./components/layout/Navbar";
@@ -9,12 +10,15 @@ import Main from "./components/Main";
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <CssBaseline />
-        <Header />
-        <Navbar />
-        <Main />
-      </div>
+      <Router>
+        <div className="App">
+          <CssBaseline />
+          <Header />
+          <Route exact path="/" component={Landing} />
+          <Navbar />
+          <Main />
+        </div>
+      </Router>
     );
   }
 }
