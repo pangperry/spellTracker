@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -16,6 +17,10 @@ const styles = {
   AppBar: {},
   Button: {
     fontSize: "1.25em"
+  },
+  Link: {
+    textDecoration: "none",
+    color: "#fff"
   }
 };
 
@@ -30,13 +35,20 @@ function ButtonAppBar(props) {
             color="inherit"
             className={classes.flex}
           >
-            SpellTracker
+            <Link className={classes.Link} to="/">
+              SpellTracker
+            </Link>
           </Typography>
           <Button color="inherit" className={classes.Button}>
-            Login
+            <Link className={classes.Link} to="/login">
+              {" "}
+              Login
+            </Link>
           </Button>
           <Button color="inherit" className={classes.Button}>
-            Sign up
+            <Link className={classes.Link} to="/register">
+              Sign up
+            </Link>
           </Button>
         </Toolbar>
       </AppBar>
