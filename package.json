@@ -13,6 +13,7 @@
   "author": "Mark Perry",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^3.5.1",
