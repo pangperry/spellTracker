@@ -7,6 +7,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 const styles = theme => ({
   container: {
@@ -33,7 +34,8 @@ class ComposedTextField extends React.Component {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    errors: {}
   };
 
   handleChange = name => event => {
@@ -43,7 +45,17 @@ class ComposedTextField extends React.Component {
   };
 
   handleSubmit = event => {
-    console.log(this.state);
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+
+    axios
+      .post("/api/teachers/register", newUser)
+      .then(res => console.log(res.data))
+      .catch(err => this.setState({ errors: err.response.data }));
   };
 
   render() {
@@ -52,7 +64,7 @@ class ComposedTextField extends React.Component {
     return (
       <div className={classes.container}>
         <Typography align="center" variant="display1">
-          Register
+          Sign Up
         </Typography>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="name">Name</InputLabel>
@@ -60,10 +72,13 @@ class ComposedTextField extends React.Component {
             id="name"
             value={this.state.name}
             onChange={this.handleChange("name")}
+            error={!!(this.state.errors && this.state.errors.name)}
           />
-          <FormHelperText id="name-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.name ? (
+            <FormHelperText error={true} id="name-helper-text">
+              {this.state.errors.name}
+            </FormHelperText>
+          ) : null}
         </FormControl>
 
         <FormControl className={classes.formControl} aria-describedby="email">
@@ -72,10 +87,13 @@ class ComposedTextField extends React.Component {
             id="email-helper"
             value={this.state.email}
             onChange={this.handleChange("email")}
+            error={!!(this.state.errors && this.state.errors.email)}
           />
-          <FormHelperText id="email-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.email ? (
+            <FormHelperText error={true} id="email-helper-text">
+              {this.state.errors.email}
+            </FormHelperText>
+          ) : null}
         </FormControl>
 
         <FormControl
@@ -87,10 +105,13 @@ class ComposedTextField extends React.Component {
             id="password-helper"
             value={this.state.password}
             onChange={this.handleChange("password")}
+            error={!!(this.state.errors && this.state.errors.password)}
           />
-          <FormHelperText id="password-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.password ? (
+            <FormHelperText error={true} id="password-helper-text">
+              {this.state.errors.password}
+            </FormHelperText>
+          ) : null}
         </FormControl>
 
         <FormControl
@@ -102,10 +123,13 @@ class ComposedTextField extends React.Component {
             id="password2-helper"
             value={this.state.password2}
             onChange={this.handleChange("password2")}
+            error={!!(this.state.errors && this.state.errors.password2)}
           />
-          <FormHelperText id="password2-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.password2 ? (
+            <FormHelperText error={true} id="email-helper-password2">
+              {this.state.errors.password2}
+            </FormHelperText>
+          ) : null}
         </FormControl>
         <Button
           onClick={this.handleSubmit}

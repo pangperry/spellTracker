@@ -7,6 +7,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 const styles = theme => ({
   container: {
@@ -31,7 +32,8 @@ const styles = theme => ({
 class ComposedTextField extends React.Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    errors: {}
   };
 
   handleChange = name => event => {
@@ -41,7 +43,17 @@ class ComposedTextField extends React.Component {
   };
 
   handleSubmit = event => {
-    console.log(this.state);
+    const user = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+
+    axios
+      .post("/api/teachers/login", user)
+      .then(res => console.log(res.data))
+      .catch(err => this.setState({ errors: err.response.data }));
   };
 
   render() {
@@ -59,10 +71,13 @@ class ComposedTextField extends React.Component {
             id="email-helper"
             value={this.state.email}
             onChange={this.handleChange("email")}
+            error={!!(this.state.errors && this.state.errors.email)}
           />
-          <FormHelperText id="email-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.email ? (
+            <FormHelperText error={true} id="email-helper-text">
+              {this.state.errors.email}
+            </FormHelperText>
+          ) : null}
         </FormControl>
 
         <FormControl
@@ -74,10 +89,13 @@ class ComposedTextField extends React.Component {
             id="password-helper"
             value={this.state.password}
             onChange={this.handleChange("password")}
+            error={!!(this.state.errors && this.state.errors.password)}
           />
-          <FormHelperText id="password-helper-text">
-            Some important helper text
-          </FormHelperText>
+          {this.state.errors && this.state.errors.password ? (
+            <FormHelperText error={true} id="password-helper-text">
+              {this.state.errors.password}
+            </FormHelperText>
+          ) : null}
         </FormControl>
         <Button
           onClick={this.handleSubmit}
