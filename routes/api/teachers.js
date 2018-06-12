@@ -20,7 +20,7 @@ const Teacher = require("../../models/Teacher");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "test is working" }));
 
-// @route   GET api/teachers/register
+// @route   POST api/teachers/register
 // @descr   Register teacher
 // @access  Public
 router.post("/register", (req, res) => {
@@ -42,6 +42,7 @@ router.post("/register", (req, res) => {
       });
 
       // load all of the sounditems
+      console.log(seedSoundItems);
       seedSoundItems.forEach(item => {
         newTeacher.soundItems.push(item);
       });
@@ -153,6 +154,6 @@ router.delete(
   }
 );
 
-//TODO: add validations for teachers/students -- at min, student names should be unique
-//TODO: delete teacher
+// TODO: add validation for students
+// TODO: delete teacher
 module.exports = router;

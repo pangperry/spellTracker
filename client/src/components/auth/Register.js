@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -7,7 +8,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import axios from "axios";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
 
 const styles = theme => ({
   container: {
@@ -38,6 +40,12 @@ class ComposedTextField extends React.Component {
     errors: {}
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
@@ -52,10 +60,7 @@ class ComposedTextField extends React.Component {
       password2: this.state.password2
     };
 
-    axios
-      .post("/api/teachers/register", newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
@@ -145,7 +150,17 @@ class ComposedTextField extends React.Component {
 }
 
 ComposedTextField.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ComposedTextField);
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { registerUser })(
+  withStyles(styles)(withRouter(ComposedTextField))
+);
