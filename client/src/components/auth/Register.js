@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+import {
+  withStyles,
+  Input,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+  Typography,
+  Button
+} from "@material-ui/core";
 
 const styles = theme => ({
   container: {
