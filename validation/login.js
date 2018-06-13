@@ -20,6 +20,10 @@ module.exports = function validateLoginInput(data) {
     errors.password = "Password mush be at least 7 characters";
   }
 
+  if (Validator.isEmpty(data.password)) {
+    errors.password = "Password field is required";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)
