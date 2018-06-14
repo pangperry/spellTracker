@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import NavBar from "./Navbar";
@@ -30,7 +30,7 @@ const styles = {
 class ButtonAppBar extends React.Component {
   onLogoutClick = e => {
     e.preventDefault();
-    this.props.logoutUser();
+    this.props.logoutUser(this.props.history);
   };
 
   render() {
@@ -97,5 +97,5 @@ const mapStateToProps = state => ({
 // export default withStyles(styles)(ButtonAppBar);
 
 export default connect(mapStateToProps, { logoutUser })(
-  withStyles(styles)(ButtonAppBar)
+  withStyles(styles)(withRouter(ButtonAppBar))
 );
