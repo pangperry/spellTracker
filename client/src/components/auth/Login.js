@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { loginUser } from "../../actions/authActions";
 import { withStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -42,6 +45,21 @@ class ComposedTextField extends React.Component {
     });
   };
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/sounds");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/sounds");
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   handleSubmit = event => {
     const user = {
       name: this.state.name,
@@ -50,14 +68,17 @@ class ComposedTextField extends React.Component {
       password2: this.state.password2
     };
 
-    axios
-      .post("/api/teachers/login", user)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    // axios
+    //   .post("/api/teachers/login", user)
+    //   .then(res => console.log(res.data))
+    //   .catch(err => this.setState({ errors: err.response.data }));
+    this.props.loginUser(user, this.props.history);
   };
 
   render() {
     const { classes } = this.props;
+    //I should refactor this so I don't use the.state everywhere below
+    // const { errors } = this.state;
 
     return (
       <div className={classes.container}>
@@ -111,7 +132,17 @@ class ComposedTextField extends React.Component {
 }
 
 ComposedTextField.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ComposedTextField);
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(
+  withStyles(styles)(withRouter(ComposedTextField))
+);

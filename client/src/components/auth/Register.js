@@ -48,6 +48,12 @@ class ComposedTextField extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/sounds");
+    }
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
