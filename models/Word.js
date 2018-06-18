@@ -15,6 +15,9 @@ const WordSchema = new Schema({
     type: Boolean,
     default: false
   },
+  sentence: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now
