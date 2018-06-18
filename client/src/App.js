@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+import PrivateRoute from "./components/PrivateRoute";
 
 import { Provider } from "react-redux";
 import "./App.css";
@@ -47,6 +48,9 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Switch>
+              <PrivateRoute exact path="/sounds" component={Main} />
+            </Switch>
           </div>
         </Router>
       </Provider>
