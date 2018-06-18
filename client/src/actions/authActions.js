@@ -52,12 +52,11 @@ export const setCurrentUser = decoded => {
 };
 
 // Log user out
-export const logoutUser = history => dispatch => {
+export const logoutUser = () => dispatch => {
   // Rmove token from localStorake
   localStorage.removeItem("jwtToken");
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
-  history.push("/login");
 };
