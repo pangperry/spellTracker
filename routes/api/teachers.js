@@ -156,7 +156,7 @@ router.post(
       teacher
         .save()
         .then(teacher => {
-          return res.json(teacher);
+          return res.json({ name: teacher.name, students: teacher.students });
         })
         .catch(err => console.log(err));
     });
@@ -172,12 +172,14 @@ router.delete(
   (req, res) => {
     Teacher.findById(req.user._id).then(teacher => {
       const index = teacher.students
-        .map(student => student.id)
+        .map(student => student._id.toString())
         .indexOf(req.params.id);
       teacher.students.splice(index, 1);
       teacher
         .save()
-        .then(teacher => res.json(teacher))
+        .then(teacher =>
+          res.json({ name: teacher.name, students: teacher.students })
+        )
         .catch(err => console.log(err));
     });
   }
