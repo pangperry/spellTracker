@@ -8,6 +8,7 @@ import Hidden from "@material-ui/core/Hidden";
 import withWidth from "@material-ui/core/withWidth";
 import Typography from "@material-ui/core/Typography";
 import SoundItems from "./SoundItems";
+import Words from "./Words";
 
 const styles = theme => ({
   root: {
@@ -33,7 +34,7 @@ function GridIntegration(props) {
           <SoundItems />
         </Grid>
         <Grid item xs={4}>
-          words
+          <Words />
         </Grid>
       </Grid>
     </div>
