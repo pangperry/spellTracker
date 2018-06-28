@@ -33,7 +33,7 @@ function GridIntegration(props) {
           <SoundItems />
         </Grid>
         <Grid item xs={4}>
-          Right
+          words
         </Grid>
       </Grid>
     </div>

@@ -42,7 +42,7 @@ router.post("/register", (req, res) => {
       });
 
       // load all of the sounditems
-      console.log(seedSoundItems);
+      // console.log(seedSoundItems);
       seedSoundItems.forEach(item => {
         newTeacher.soundItems.push(item);
       });
@@ -61,8 +61,8 @@ router.post("/register", (req, res) => {
   });
 });
 
-// @route   GET api/teachers/login
-// @descr   Register login
+// @route   POST api/teachers/login
+// @descr   LOGIN, sets user and soundItem categories etc
 // @access  Public
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
@@ -78,9 +78,38 @@ router.post("/login", (req, res) => {
     if (!teacher) {
       return res.status(400).json({ email: "teacher not found" });
     }
+
     bcrypt.compare(password, teacher.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: teacher.id, name: teacher.name };
+        //array of existing category names
+        let categoryNames;
+        const temp = new Set();
+        for (let item of teacher.soundItems) {
+          temp.add(item.category);
+        }
+        categoryNames = [...temp];
+        categoryNames.unshift("all");
+
+        //a subcategory generator
+        let selector = {};
+        for (let item of teacher.soundItems) {
+          if (!selector[item.category]) {
+            selector[item.category] = new Set();
+          } else {
+            selector[item.category].add(item.subcategory);
+          }
+        }
+        for (let cat in selector) {
+          selector[cat] = [...selector[cat]];
+        }
+
+        const payload = {
+          id: teacher.id,
+          name: teacher.name,
+          soundItems: teacher.soundItems,
+          categoryNames: categoryNames,
+          selector: selector
+        };
 
         jwt.sign(
           payload,

@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper, Tabs, Tab } from "@material-ui/core";
+import { setCurrentCategory } from "../../actions/soundItemActions";
 
 const styles = {
   root: {
@@ -16,10 +18,11 @@ class CenteredTabs extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
+    this.props.setCurrentCategory(this.props.categories[value]);
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, categories } = this.props;
 
     return (
       <Paper className={classes.root}>
@@ -30,9 +33,7 @@ class CenteredTabs extends React.Component {
           textColor="primary"
           centered
         >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
+          {categories.map(item => <Tab key={item} label={item} />)}
         </Tabs>
       </Paper>
     );
@@ -40,7 +41,16 @@ class CenteredTabs extends React.Component {
 }
 
 CenteredTabs.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
+  setCurrentCategory: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(CenteredTabs);
+const mapStateToProps = state => ({
+  auth: state.auth,
+  categories: state.auth.categoryNames
+});
+
+export default connect(mapStateToProps, {
+  setCurrentCategory
+})(withStyles(styles)(CenteredTabs));

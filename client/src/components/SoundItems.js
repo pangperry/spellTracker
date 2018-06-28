@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 import { withStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -11,7 +13,6 @@ import {
   Typography
 } from "@material-ui/core";
 import SubcategoryNav from "./SubcategoryNav";
-import data from "../seed/soundItems";
 
 const styles = theme => ({
   root: {
@@ -29,6 +30,12 @@ class SimpleTable extends React.Component {
     selectedId: -1
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
+      this.setState({ subcategory: "Select A Subcategory" });
+    }
+  }
+
   handleClick = (e, index) => {
     e.preventDefault();
     this.setState({ selectedId: index });
@@ -38,42 +45,52 @@ class SimpleTable extends React.Component {
   isSelected = id => this.state.selectedId === id;
 
   render() {
-    const { classes } = this.props;
+    const { classes, soundItems, category, subcategory } = this.props;
+
+    let data;
+    if (category === "all") {
+      data = soundItems;
+    } else if (subcategory) {
+      data = soundItems.filter(
+        item => item.subcategory === subcategory && item.category === category
+      );
+    } else {
+      data = soundItems.filter(item => item.category === category);
+    }
 
     const tableRows = data.map(n => {
-      const isSelected = this.isSelected(n.id);
-      //count will need to be replaced with a query based on word with current student id and the n.id(current word id)
+      const isSelected = this.isSelected(n._id);
       const count = 6;
       return (
-        <Fragment>
-          <TableRow hover selected={isSelected} key={n.id}>
+        <Fragment key={n._id}>
+          <TableRow hover selected={isSelected}>
             <TableCell
               padding="dense"
-              onClick={event => this.handleClick(event, n.id)}
+              onClick={event => this.handleClick(event, n._id)}
             >
               {n.sound}
             </TableCell>
             <TableCell
               padding="dense"
-              onClick={event => this.handleClick(event, n.id)}
+              onClick={event => this.handleClick(event, n._id)}
             >
               {n.spelling}
             </TableCell>
             <TableCell
               padding="dense"
-              onClick={event => this.handleClick(event, n.id)}
+              onClick={event => this.handleClick(event, n._id)}
             >
               {n.keyword}
             </TableCell>
             <TableCell
               padding="dense"
-              onClick={event => this.handleClick(event, n.id)}
+              onClick={event => this.handleClick(event, n._id)}
             >
               {n.level}
             </TableCell>
             <TableCell
               padding="dense"
-              onClick={event => this.handleClick(event, n.id)}
+              onClick={event => this.handleClick(event, n._id)}
             >
               {n.syllableType}
             </TableCell>
@@ -88,6 +105,7 @@ class SimpleTable extends React.Component {
         </Fragment>
       );
     });
+
     const tableHeaders = (
       <TableRow>
         <TableCell padding="dense">sound</TableCell>
@@ -115,4 +133,10 @@ SimpleTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleTable);
+const mapStateToProps = state => ({
+  soundItems: state.auth.soundItems,
+  subcategory: state.soundItems.currentSubcategory,
+  category: state.soundItems.currentCategory
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(SimpleTable));

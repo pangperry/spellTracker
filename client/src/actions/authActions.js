@@ -31,7 +31,6 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode toekn to get user data
       const decoded = jwt_decode(token);
-      console.log(decoded);
       // Set current user
       dispatch(setCurrentUser(decoded));
     })
@@ -60,3 +59,9 @@ export const logoutUser = () => dispatch => {
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
+
+// Set Categories
+// TODO: Set SubCategories
+
+// TODO: Set Current Category
+// TODO: Set current SoundItem
