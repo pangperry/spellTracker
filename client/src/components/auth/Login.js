@@ -113,6 +113,7 @@ class ComposedTextField extends React.Component {
             value={this.state.password}
             onChange={this.handleChange("password")}
             error={!!(this.state.errors && this.state.errors.password)}
+            type="password"
           />
           {this.state.errors && this.state.errors.password ? (
             <FormHelperText error={true} id="password-helper-text">
