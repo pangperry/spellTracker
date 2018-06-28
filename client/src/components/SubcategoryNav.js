@@ -32,7 +32,6 @@ class TemporaryDrawer extends React.Component {
     this.state = {
       left: false,
       subcategory: "Select A Subcategory",
-      // hasSubcategories: false,
       categoriesObj: {}
     };
     this.selectSubCat.bind(this);
@@ -40,7 +39,7 @@ class TemporaryDrawer extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.category !== prevProps.category) {
-      this.setState({ subcategory: "Select A Subcaegory" });
+      this.setState({ subcategory: "Select A Subcategory" });
     }
   }
 
@@ -59,14 +58,6 @@ class TemporaryDrawer extends React.Component {
   render() {
     const { classes, category, selector } = this.props;
 
-    //selector is an object that outputs a list (if any) of
-    //subcategory names for a given category name
-
-    ///TODOS:
-    //need to figure out why button isn't working correctly: all works, but consonants does not
-    //when category changes, the button shouls change back to "select a subCategory"
-    //watch vids on how to deal with global and component state: i.e., I want to filter the list items that are available in auth.teacher.state from within subnav
-    // this.getSubcategories(category);
     const subcategories = selector[category] || ["none"];
 
     const subcategoryList = subcategories.map((item, index) => (
@@ -85,7 +76,6 @@ class TemporaryDrawer extends React.Component {
       !selector[category] ||
       (selector[category].length === 1 && !selector[category][0]);
 
-    // const subCatSelectButton = !!selector[category] ? (
     const subCatSelectButton = !noSubCats ? (
       <Button
         className={classes.button}
