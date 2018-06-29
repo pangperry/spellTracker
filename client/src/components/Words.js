@@ -10,6 +10,9 @@ import Avatar from "@material-ui/core/Avatar";
 import { Paper, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import WordCard from "./WordCard";
+import axios from "axios";
+import { connect } from "react-redux";
+// import { getStudents } from "../actions/wordActions";
 
 const styles = theme => ({
   root: {
@@ -38,6 +41,10 @@ class CheckboxListSecondary extends React.Component {
   state = {
     checked: [1]
   };
+
+  // componentDidMount() {
+  //   this.props.getStudents();
+  // }
 
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -88,4 +95,5 @@ CheckboxListSecondary.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+// export default connect(null, { getStudents })(
 export default withStyles(styles)(CheckboxListSecondary);

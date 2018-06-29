@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper, Tabs, Tab } from "@material-ui/core";
-import { setCurrentCategory } from "../../actions/soundItemActions";
+import {
+  initSoundItems,
+  getCategoryNames,
+  setCurrentCategory,
+  initSelector
+} from "../../actions/soundItemActions";
+// import { getStudents } from "../../actions/wordActions";
 
 const styles = {
   root: {
@@ -15,6 +21,18 @@ class CenteredTabs extends React.Component {
   state = {
     value: 0
   };
+
+  componentDidMount() {
+    //should make soundItems available through redux soundItems.soundItems
+    this.props.initSoundItems();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.soundItems !== this.props.soundItems) {
+      this.props.getCategoryNames(this.props.soundItems);
+      this.props.initSelector(this.props.soundItems);
+    }
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -43,14 +61,20 @@ class CenteredTabs extends React.Component {
 CenteredTabs.propTypes = {
   classes: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
-  setCurrentCategory: PropTypes.func.isRequired
+  setCurrentCategory: PropTypes.func.isRequired,
+  initSoundItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  categories: state.auth.categoryNames
+  soundItems: state.soundItems.soundItems,
+  // categories: state.auth.categoryNames
+  categories: state.soundItems.categoryNames
 });
 
 export default connect(mapStateToProps, {
-  setCurrentCategory
+  setCurrentCategory,
+  initSoundItems,
+  getCategoryNames,
+  initSelector
 })(withStyles(styles)(CenteredTabs));

@@ -58,7 +58,9 @@ class TemporaryDrawer extends React.Component {
   render() {
     const { classes, category, selector } = this.props;
 
-    const subcategories = selector[category] || ["none"];
+    const subcategories = selector
+      ? selector[category] || ["none"]
+      : ["selector loading"];
 
     const subcategoryList = subcategories.map((item, index) => (
       <ListItem onClick={e => this.selectSubCat(e, item)} key={index}>
@@ -72,9 +74,10 @@ class TemporaryDrawer extends React.Component {
       </div>
     );
 
-    const noSubCats =
-      !selector[category] ||
-      (selector[category].length === 1 && !selector[category][0]);
+    const noSubCats = selector
+      ? !selector[category] ||
+        (selector[category].length === 1 && !selector[category][0])
+      : false;
 
     const subCatSelectButton = !noSubCats ? (
       <Button
@@ -114,8 +117,9 @@ TemporaryDrawer.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  selector: state.auth.selector,
-  category: state.soundItems.currentCategory
+  // selector: state.auth.selector,
+  category: state.soundItems.currentCategory,
+  selector: state.soundItems.selector
 });
 export default connect(mapStateToProps, {
   setCurrentSubcategory

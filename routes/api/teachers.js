@@ -90,7 +90,7 @@ router.post("/login", (req, res) => {
         categoryNames = [...temp];
         categoryNames.unshift("all");
 
-        //a subcategory generator
+        //a subcategory generator--input category name, it generates list of subcategories
         let selector = {};
         for (let item of teacher.soundItems) {
           if (!selector[item.category]) {
@@ -105,10 +105,10 @@ router.post("/login", (req, res) => {
 
         const payload = {
           id: teacher.id,
-          name: teacher.name,
-          soundItems: teacher.soundItems,
-          categoryNames: categoryNames,
-          selector: selector
+          name: teacher.name
+          // soundItems: teacher.soundItems,
+          // categoryNames: categoryNames,
+          // selector: selector
         };
 
         jwt.sign(
@@ -132,6 +132,7 @@ router.post("/login", (req, res) => {
 // @route   GET api/teachers/current
 // @descr   Return current teacher
 // @access  Private
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
@@ -144,46 +145,82 @@ router.get(
   }
 );
 
+// @route   GET api/teachers/current/sounditems
+// @descr   Return current teacher
+// @access  Private
+router.get(
+  "/current/sounditems",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    Teacher.findById(req.user._id)
+      .then(teacher => {
+        if (!teacher.soundItems) {
+          errors.nosoundItems = "teacher has no soundItems";
+          return res.status(404).json(errors);
+        }
+        res.json(teacher.soundItems);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route GET api/teachers/students
+// @descr Get teacher's students
+// @access Private
+router.get(
+  "/students",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findById(req.user._id)
+      .then(teacher => {
+        res.json({ students: teacher.students });
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 // @route   POST api/teachers/student
 // @descr   Add student to teacher
 // @access  Private
-router.post(
-  "/student",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Teacher.findById(req.user._id).then(teacher => {
-      teacher.students.push({ name: req.body.name });
-      teacher
-        .save()
-        .then(teacher => {
-          return res.json({ name: teacher.name, students: teacher.students });
-        })
-        .catch(err => console.log(err));
-    });
-  }
-);
+// router.post(
+//   "/student",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Teacher.findById(req.user._id).then(teacher => {
+//       teacher.students.push({ name: req.body.name });
+//       teacher
+//         .save()
+//         .then(teacher => {
+//           return res.json({ name: teacher.name, students: teacher.students });
+//         })
+//         .catch(err => console.log(err));
+//     });
+//   }
+// );
 
 // @route   DELETE api/teachers/student
 // @descr   DELETE student from teacher
 // @access  Private
-router.delete(
-  "/student/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Teacher.findById(req.user._id).then(teacher => {
-      const index = teacher.students
-        .map(student => student._id.toString())
-        .indexOf(req.params.id);
-      teacher.students.splice(index, 1);
-      teacher
-        .save()
-        .then(teacher =>
-          res.json({ name: teacher.name, students: teacher.students })
-        )
-        .catch(err => console.log(err));
-    });
-  }
-);
+// router.delete(
+//   "/student/:id",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Teacher.findById(req.user._id).then(teacher => {
+//       const index = teacher.students
+//         .map(student => student._id.toString())
+//         .indexOf(req.params.id);
+//       teacher.students.splice(index, 1);
+//       teacher
+//         .save()
+//         .then(teacher =>
+//           res.json({ name: teacher.name, students: teacher.students })
+//         )
+//         .catch(err => console.log(err));
+//     });
+//   }
+// );
 
 // TODO: add validation for students
 // TODO: delete teacher

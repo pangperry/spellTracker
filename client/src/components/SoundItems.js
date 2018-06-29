@@ -134,7 +134,8 @@ SimpleTable.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  soundItems: state.auth.soundItems,
+  // soundItems: state.auth.soundItems,
+  soundItems: state.soundItems.soundItems,
   subcategory: state.soundItems.currentSubcategory,
   category: state.soundItems.currentCategory
 });
