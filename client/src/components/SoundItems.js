@@ -46,6 +46,7 @@ class SimpleTable extends React.Component {
 
   render() {
     const { classes, soundItems, category, subcategory } = this.props;
+    if (soundItems === undefined) return null;
 
     let data;
     if (category === "all") {
@@ -62,47 +63,49 @@ class SimpleTable extends React.Component {
       const isSelected = this.isSelected(n._id);
       const count = 6;
       return (
-        <Fragment key={n._id}>
-          <TableRow hover selected={isSelected}>
-            <TableCell
-              padding="dense"
-              onClick={event => this.handleClick(event, n._id)}
-            >
-              {n.sound}
-            </TableCell>
-            <TableCell
-              padding="dense"
-              onClick={event => this.handleClick(event, n._id)}
-            >
-              {n.spelling}
-            </TableCell>
-            <TableCell
-              padding="dense"
-              onClick={event => this.handleClick(event, n._id)}
-            >
-              {n.keyword}
-            </TableCell>
-            <TableCell
-              padding="dense"
-              onClick={event => this.handleClick(event, n._id)}
-            >
-              {n.level}
-            </TableCell>
-            <TableCell
-              padding="dense"
-              onClick={event => this.handleClick(event, n._id)}
-            >
-              {n.syllableType}
-            </TableCell>
-            <TableCell padding="dense">
-              {count > 0 ? (
-                <Typography color="primary">{count}</Typography>
-              ) : (
-                <Typography color="default">{count}</Typography>
-              )}
-            </TableCell>
-          </TableRow>
-        </Fragment>
+        <TableRow
+          key={n._id ? n._id.toString() : null}
+          hover
+          selected={isSelected}
+        >
+          <TableCell
+            padding="dense"
+            onClick={event => this.handleClick(event, n._id)}
+          >
+            {n.sound}
+          </TableCell>
+          <TableCell
+            padding="dense"
+            onClick={event => this.handleClick(event, n._id)}
+          >
+            {n.spelling}
+          </TableCell>
+          <TableCell
+            padding="dense"
+            onClick={event => this.handleClick(event, n._id)}
+          >
+            {n.keyword}
+          </TableCell>
+          <TableCell
+            padding="dense"
+            onClick={event => this.handleClick(event, n._id)}
+          >
+            {n.level}
+          </TableCell>
+          <TableCell
+            padding="dense"
+            onClick={event => this.handleClick(event, n._id)}
+          >
+            {n.syllableType}
+          </TableCell>
+          <TableCell padding="dense">
+            {count > 0 ? (
+              <Typography color="primary">{count}</Typography>
+            ) : (
+              <Typography color="default">{count}</Typography>
+            )}
+          </TableCell>
+        </TableRow>
       );
     });
 
