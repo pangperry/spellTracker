@@ -1,4 +1,8 @@
-import { SET_STUDENTS, SET_CURRENT_STUDENT } from "../actions/types";
+import {
+  SET_STUDENTS,
+  SET_CURRENT_STUDENT,
+  SET_CURRENT_WORDS
+} from "../actions/types";
 import axios from "axios";
 
 export const getStudents = () => dispatch => {
@@ -22,4 +26,22 @@ export const setCurrentStudent = student => dispatch => {
     type: SET_CURRENT_STUDENT,
     currentStudent: student
   });
+};
+
+export const getCurrentWords = currentStudentId => dispatch => {
+  console.log(currentStudentId);
+  axios
+    .get(`/api/words/${currentStudentId}`)
+    .then(res => {
+      console.log("yo");
+      dispatch(setCurrentWords(res.data));
+    })
+    .catch(err => console.log(err));
+};
+
+export const setCurrentWords = words => {
+  return {
+    type: SET_CURRENT_WORDS,
+    currentWords: words
+  };
 };

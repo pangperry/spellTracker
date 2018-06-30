@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
-import { setCurrentStudent } from "../actions/wordActions";
+import { setCurrentStudent, getCurrentWords } from "../actions/wordActions";
 
 class SimpleMenu extends React.Component {
   state = {
@@ -30,6 +30,7 @@ class SimpleMenu extends React.Component {
 
     if (student) {
       this.props.setCurrentStudent(student);
+      this.props.getCurrentWords(student._id);
     }
   };
 
@@ -78,4 +79,6 @@ const mapStateToProps = state => ({
   students: state.words.students
 });
 
-export default connect(mapStateToProps, { setCurrentStudent })(SimpleMenu);
+export default connect(mapStateToProps, { setCurrentStudent, getCurrentWords })(
+  SimpleMenu
+);
