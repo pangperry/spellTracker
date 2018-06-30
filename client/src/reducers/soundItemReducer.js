@@ -1,6 +1,7 @@
 import {
   SET_CURRENT_CATEGORY,
   SET_CURRENT_SUBCATEGORY,
+  SET_CURRENT_SOUND_ITEM,
   GET_CATEGORIES,
   GET_SUBCATEGORIES,
   SET_SOUND_ITEMS,
@@ -12,6 +13,7 @@ const initialState = {
   categoryNames: ["loading"],
   soundItems: [{ category: "loading", subcategory: "loading" }],
   currentSubcategory: null,
+  currentSoundItem: null,
   currentCategory: "all"
 };
 
@@ -35,6 +37,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         soundItems: action.soundItems
+      };
+    case SET_CURRENT_SOUND_ITEM:
+      return {
+        ...state,
+        currentSoundItem: action.currentSoundItem
       };
     case SET_CURRENT_SUBCATEGORY:
       return {

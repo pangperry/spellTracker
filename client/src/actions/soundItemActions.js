@@ -1,10 +1,11 @@
 import axios from "axios";
 
 import {
-  GET_SOUND_ITEMS_FROM_AUTH,
+  // GET_SOUND_ITEMS_FROM_AUTH,
   SET_CURRENT_CATEGORY,
   SET_CURRENT_SUBCATEGORY,
   SET_SOUND_ITEMS,
+  SET_CURRENT_SOUND_ITEM,
   SET_CATEGORY_NAMES,
   SET_SELECTOR
 } from "./types";
@@ -24,6 +25,13 @@ export const setSoundItems = soundItems => {
     type: SET_SOUND_ITEMS,
     soundItems: soundItems
   };
+};
+
+export const setCurrentSoundItem = currentSoundItem => dispatch => {
+  dispatch({
+    type: SET_CURRENT_SOUND_ITEM,
+    currentSoundItem: currentSoundItem
+  });
 };
 
 export const setCurrentCategory = category => dispatch => {

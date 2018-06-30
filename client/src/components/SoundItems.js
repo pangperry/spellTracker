@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { setCurrentSoundItem } from "../actions/soundItemActions";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -36,10 +37,14 @@ class SimpleTable extends React.Component {
     }
   }
 
-  handleClick = (e, index) => {
+  handleClick = (e, id) => {
     e.preventDefault();
-    this.setState({ selectedId: index });
-    console.log(index);
+    this.setState({ selectedId: id });
+    let currentSoundItem = this.props.soundItems.filter(
+      item => item._id === id
+    )[0];
+    console.log(currentSoundItem);
+    this.props.setCurrentSoundItem(currentSoundItem);
   };
 
   isSelected = id => this.state.selectedId === id;
@@ -143,4 +148,6 @@ const mapStateToProps = state => ({
   category: state.soundItems.currentCategory
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(SimpleTable));
+export default connect(mapStateToProps, { setCurrentSoundItem })(
+  withStyles(styles)(SimpleTable)
+);
