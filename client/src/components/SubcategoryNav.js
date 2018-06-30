@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  setCurrentSubcategory
-  // getSubcategories
+  setCurrentSubcategory,
+  setCurrentSoundItem
 } from "./../actions/soundItemActions";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -53,6 +53,7 @@ class TemporaryDrawer extends React.Component {
     e.preventDefault();
     this.setState({ subcategory: item });
     this.props.setCurrentSubcategory(item);
+    this.props.setCurrentSoundItem(null);
   };
 
   render() {
@@ -122,5 +123,6 @@ const mapStateToProps = state => ({
   selector: state.soundItems.selector
 });
 export default connect(mapStateToProps, {
-  setCurrentSubcategory
+  setCurrentSubcategory,
+  setCurrentSoundItem
 })(withStyles(styles)(TemporaryDrawer));

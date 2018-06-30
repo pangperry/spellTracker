@@ -7,6 +7,7 @@ import {
   initSoundItems,
   getCategoryNames,
   setCurrentCategory,
+  setCurrentSoundItem,
   initSelector
 } from "../../actions/soundItemActions";
 // import { getStudents } from "../../actions/wordActions";
@@ -37,6 +38,7 @@ class CenteredTabs extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
     this.props.setCurrentCategory(this.props.categories[value]);
+    this.props.setCurrentSoundItem(null);
   };
 
   render() {
@@ -76,5 +78,6 @@ export default connect(mapStateToProps, {
   setCurrentCategory,
   initSoundItems,
   getCategoryNames,
-  initSelector
+  initSelector,
+  setCurrentSoundItem
 })(withStyles(styles)(CenteredTabs));
