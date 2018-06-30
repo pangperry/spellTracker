@@ -81,34 +81,9 @@ router.post("/login", (req, res) => {
 
     bcrypt.compare(password, teacher.password).then(isMatch => {
       if (isMatch) {
-        //array of existing category names
-        let categoryNames;
-        const temp = new Set();
-        for (let item of teacher.soundItems) {
-          temp.add(item.category);
-        }
-        categoryNames = [...temp];
-        categoryNames.unshift("all");
-
-        //a subcategory generator--input category name, it generates list of subcategories
-        let selector = {};
-        for (let item of teacher.soundItems) {
-          if (!selector[item.category]) {
-            selector[item.category] = new Set();
-          } else {
-            selector[item.category].add(item.subcategory);
-          }
-        }
-        for (let cat in selector) {
-          selector[cat] = [...selector[cat]];
-        }
-
         const payload = {
           id: teacher.id,
           name: teacher.name
-          // soundItems: teacher.soundItems,
-          // categoryNames: categoryNames,
-          // selector: selector
         };
 
         jwt.sign(
@@ -223,5 +198,4 @@ router.delete(
 );
 
 // TODO: add validation for students
-// TODO: delete teacher
 module.exports = router;
