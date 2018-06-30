@@ -15,7 +15,6 @@ export const initSoundItems = () => dispatch => {
     .get("/api/teachers/current/sounditems")
     .then(res => {
       dispatch(setSoundItems(res.data));
-      console.log("hi");
     })
     .catch(err => console.log(err));
 };
