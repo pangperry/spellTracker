@@ -184,43 +184,43 @@ router.get(
 // @route   POST api/teachers/student
 // @descr   Add student to teacher
 // @access  Private
-// router.post(
-//   "/student",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Teacher.findById(req.user._id).then(teacher => {
-//       teacher.students.push({ name: req.body.name });
-//       teacher
-//         .save()
-//         .then(teacher => {
-//           return res.json({ name: teacher.name, students: teacher.students });
-//         })
-//         .catch(err => console.log(err));
-//     });
-//   }
-// );
+router.post(
+  "/student",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findById(req.user._id).then(teacher => {
+      teacher.students.push({ name: req.body.name });
+      teacher
+        .save()
+        .then(teacher => {
+          return res.json({ name: teacher.name, students: teacher.students });
+        })
+        .catch(err => console.log(err));
+    });
+  }
+);
 
 // @route   DELETE api/teachers/student
 // @descr   DELETE student from teacher
 // @access  Private
-// router.delete(
-//   "/student/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Teacher.findById(req.user._id).then(teacher => {
-//       const index = teacher.students
-//         .map(student => student._id.toString())
-//         .indexOf(req.params.id);
-//       teacher.students.splice(index, 1);
-//       teacher
-//         .save()
-//         .then(teacher =>
-//           res.json({ name: teacher.name, students: teacher.students })
-//         )
-//         .catch(err => console.log(err));
-//     });
-//   }
-// );
+router.delete(
+  "/student/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Teacher.findById(req.user._id).then(teacher => {
+      const index = teacher.students
+        .map(student => student._id.toString())
+        .indexOf(req.params.id);
+      teacher.students.splice(index, 1);
+      teacher
+        .save()
+        .then(teacher =>
+          res.json({ name: teacher.name, students: teacher.students })
+        )
+        .catch(err => console.log(err));
+    });
+  }
+);
 
 // TODO: add validation for students
 // TODO: delete teacher

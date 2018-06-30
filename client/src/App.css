@@ -22,3 +22,13 @@ body {
 #attribution {
   margin-left: -50%;
 }
+
+#student-selector {
+  margin: 0 auto;
+  justify-content: center;
+  text-align: center;
+  color: red;
+}
+#selector-font {
+  color: #f44336;
+}

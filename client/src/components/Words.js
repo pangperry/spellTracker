@@ -10,9 +10,10 @@ import Avatar from "@material-ui/core/Avatar";
 import { Paper, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import WordCard from "./WordCard";
+import StudentSelector from "./StudentSelector";
 import axios from "axios";
 import { connect } from "react-redux";
-// import { getStudents } from "../actions/wordActions";
+import { getStudents } from "../actions/wordActions";
 
 const styles = theme => ({
   root: {
@@ -34,6 +35,11 @@ const styles = theme => ({
     textAlign: "center",
     marginTop: 10,
     marginBottom: 10
+  },
+  StudentSelector: {
+    marginLeft: 50,
+    justifyContent: "center",
+    textAlign: "center"
   }
 });
 
@@ -42,9 +48,9 @@ class CheckboxListSecondary extends React.Component {
     checked: [1]
   };
 
-  // componentDidMount() {
-  //   this.props.getStudents();
-  // }
+  componentDidMount() {
+    this.props.getStudents();
+  }
 
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -72,8 +78,10 @@ class CheckboxListSecondary extends React.Component {
           className={classes.Typography}
           variant="headline"
         >
-          Current Words
+          Current Words for
         </Typography>
+        <StudentSelector />
+
         <div className={classes.button}>
           <Button variant="outlined" color="primary" className={classes.button}>
             Add Word
@@ -95,5 +103,14 @@ CheckboxListSecondary.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+  // soundItems: state.soundItems.soundItems,
+  // categories: state.auth.categoryNames
+  // categories: state.soundItems.categoryNames
+  students: state.words.students
+});
 // export default connect(null, { getStudents })(
-export default withStyles(styles)(CheckboxListSecondary);
+export default connect(mapStateToProps, { getStudents })(
+  withStyles(styles)(CheckboxListSecondary)
+);
