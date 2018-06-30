@@ -56,7 +56,7 @@ class RecipeReviewCard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, word } = this.props;
 
     return (
       <div>
@@ -86,8 +86,8 @@ class RecipeReviewCard extends React.Component {
                 </IconButton>
               </Tooltip>
             }
-            title="ashortword"
-            subheader="ashortwordmispelled"
+            title={word.spelling}
+            subheader={word.misspelling}
           />
 
           <CardActions className={classes.actions} disableActionSpacing>
@@ -107,7 +107,7 @@ class RecipeReviewCard extends React.Component {
               <Typography paragraph variant="body2">
                 Sentence:
               </Typography>
-              <Typography paragraph> "a sentence"</Typography>
+              <Typography paragraph> {word.setence}</Typography>
             </CardContent>
           </Collapse>
         </Card>

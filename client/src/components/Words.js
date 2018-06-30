@@ -70,10 +70,24 @@ class CheckboxListSecondary extends React.Component {
   };
 
   render() {
-    const { classes, currentSoundItem, currentStudent } = this.props;
-    // console.log(currentSoundItem);
-    // console.log(currentStudent);
+    const {
+      classes,
+      currentSoundItem,
+      currentStudent,
+      currentWords
+    } = this.props;
+
     let disableButton = currentSoundItem === null || currentStudent === null;
+    let wordList =
+      currentWords && currentWords.length ? (
+        <List disablePadding>
+          {currentWords.map(word => (
+            <ListItem key={word._id} dense className={classes.listItem}>
+              <WordCard word={word} />
+            </ListItem>
+          ))}
+        </List>
+      ) : null;
 
     return (
       <Paper className={classes.root}>
@@ -105,13 +119,7 @@ class CheckboxListSecondary extends React.Component {
             </div>
           </Tooltip>
         </div>
-        <List disablePadding>
-          {[0, 1, 2, 3].map(value => (
-            <ListItem key={value} dense className={classes.listItem}>
-              <WordCard />
-            </ListItem>
-          ))}
-        </List>
+        {wordList}
       </Paper>
     );
   }
@@ -123,13 +131,11 @@ CheckboxListSecondary.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  // soundItems: state.soundItems.soundItems,
-  // categories: state.auth.categoryNames
   currentSoundItem: state.soundItems.currentSoundItem,
   currentStudent: state.words.currentStudent,
+  currentWords: state.words.currentWords,
   students: state.words.students
 });
-// export default connect(null, { getStudents })(
 export default connect(mapStateToProps, { getStudents })(
   withStyles(styles)(CheckboxListSecondary)
 );

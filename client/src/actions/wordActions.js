@@ -29,11 +29,9 @@ export const setCurrentStudent = student => dispatch => {
 };
 
 export const getCurrentWords = currentStudentId => dispatch => {
-  console.log(currentStudentId);
   axios
     .get(`/api/words/${currentStudentId}`)
     .then(res => {
-      console.log("yo");
       dispatch(setCurrentWords(res.data));
     })
     .catch(err => console.log(err));
