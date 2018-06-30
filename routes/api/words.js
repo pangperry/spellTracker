@@ -14,7 +14,7 @@ const Teacher = require("../../models/Teacher");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "words works" }));
 
-// @route   POST api/words/:student_id
+// @route   POST api/words/:student_id/:item_id   ----the second id refers to a soundItem id
 // @descr   create new word for student of current teacher
 // @access  Private
 

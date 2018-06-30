@@ -9,6 +9,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
 import { Paper, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
 import WordCard from "./WordCard";
 import StudentSelector from "./StudentSelector";
 import axios from "axios";
@@ -69,7 +70,10 @@ class CheckboxListSecondary extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, currentSoundItem, currentStudent } = this.props;
+    // console.log(currentSoundItem);
+    // console.log(currentStudent);
+    let disableButton = currentSoundItem === null || currentStudent === null;
 
     return (
       <Paper className={classes.root}>
@@ -83,9 +87,23 @@ class CheckboxListSecondary extends React.Component {
         <StudentSelector />
 
         <div className={classes.button}>
-          <Button variant="outlined" color="primary" className={classes.button}>
-            Add Word
-          </Button>
+          <Tooltip
+            title="first select student and soundItem"
+            id="tooltip-disabled"
+            placement="bottom"
+            disableHoverListener={!disableButton}
+          >
+            <div>
+              <Button
+                disabled={disableButton}
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+              >
+                Add Word
+              </Button>
+            </div>
+          </Tooltip>
         </div>
         <List disablePadding>
           {[0, 1, 2, 3].map(value => (
@@ -107,7 +125,8 @@ const mapStateToProps = state => ({
   auth: state.auth,
   // soundItems: state.soundItems.soundItems,
   // categories: state.auth.categoryNames
-  // categories: state.soundItems.categoryNames
+  currentSoundItem: state.soundItems.currentSoundItem,
+  currentStudent: state.words.currentStudent,
   students: state.words.students
 });
 // export default connect(null, { getStudents })(
