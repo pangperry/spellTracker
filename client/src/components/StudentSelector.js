@@ -22,13 +22,13 @@ class SimpleMenu extends React.Component {
   };
 
   handleClose = student => {
-    //the extra conditions are to handle clicking outside menu
     this.setState({
       anchorEl: null,
       student: student && student.name ? student.name : "Select a student"
     });
 
-    if (student) {
+    //the extra condition is to handle clicking outside menu
+    if (student && student.name) {
       this.props.setCurrentStudent(student);
       this.props.getCurrentWords(student._id);
     }
