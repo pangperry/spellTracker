@@ -24,7 +24,10 @@ const styles = theme => ({
     overflowY: "auto",
     paddingBottom: 150
   },
-  table: {}
+  table: {},
+  Subcatdiv: {
+    height: 90
+  }
 });
 
 class SimpleTable extends React.Component {
@@ -128,7 +131,9 @@ class SimpleTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <SubcategoryNav />
+        <div className={classes.Subcatdiv}>
+          <SubcategoryNav />
+        </div>
         <Table className={classes.table}>
           <TableHead>{tableHeaders}</TableHead>
           <TableBody>{tableRows}</TableBody>
