@@ -14,7 +14,8 @@ import WordCard from "./WordCard";
 import StudentSelector from "./StudentSelector";
 import axios from "axios";
 import { connect } from "react-redux";
-import { getStudents } from "../actions/wordActions";
+import { getStudents, setFilteredWords } from "../actions/wordActions";
+import AddWordButton from "./AddWordButton";
 
 const styles = theme => ({
   root: {
@@ -51,6 +52,50 @@ class CheckboxListSecondary extends React.Component {
 
   componentDidMount() {
     this.props.getStudents();
+    if (this.props.currentWords) {
+      this.props.setFilteredWords(
+        this.props.currentWords ? this.props.currentWords.slice() : []
+      );
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // TODO: add tests and refactor this mess:
+    if (this.props.currentWords !== prevProps.currentWords) {
+      if (this.props.currentWords) {
+        this.props.setFilteredWords(
+          this.props.currentWords ? this.props.currentWords.slice() : []
+        );
+      }
+    } else if (
+      this.props.currentSoundItem &&
+      this.props.currentSoundItem !== prevProps.currentSoundItem
+    ) {
+      if (this.props.currentWords && this.props.currentSoundItem) {
+        let filteredWords = this.props.currentWords
+          .slice()
+          .filter(word => word.soundItem === this.props.currentSoundItem._id);
+        this.props.setFilteredWords(filteredWords);
+      }
+    } else if (
+      this.props.currentCategory &&
+      this.props.currentCategory !== prevProps.currentCategory
+    ) {
+      let filteredWords = this.props.currentWords
+        .slice()
+        .filter(word => word.category === this.props.currentCategory);
+      this.props.setFilteredWords(filteredWords);
+    } else if (
+      this.props.currentSubcategory &&
+      this.props.currentSubcategory !== prevProps.currentSubcategory
+    ) {
+      if (this.props.currentWords) {
+        let filteredWords = this.props.currentWords
+          .slice()
+          .filter(word => word.subcategory === this.props.currentSubCategory);
+        this.props.setFilteredWords(filteredWords);
+      }
+    }
   }
 
   handleToggle = value => () => {
@@ -74,14 +119,15 @@ class CheckboxListSecondary extends React.Component {
       classes,
       currentSoundItem,
       currentStudent,
-      currentWords
+      currentWords,
+      filteredWords
     } = this.props;
 
     let disableButton = currentSoundItem === null || currentStudent === null;
     let wordList =
-      currentWords && currentWords.length ? (
+      filteredWords && filteredWords.length ? (
         <List disablePadding>
-          {currentWords.map(word => (
+          {filteredWords.map(word => (
             <ListItem key={word._id} dense className={classes.listItem}>
               <WordCard word={word} />
             </ListItem>
@@ -98,6 +144,7 @@ class CheckboxListSecondary extends React.Component {
         >
           Current Words for
         </Typography>
+
         <StudentSelector />
 
         <div className={classes.button}>
@@ -108,14 +155,7 @@ class CheckboxListSecondary extends React.Component {
             disableHoverListener={!disableButton}
           >
             <div>
-              <Button
-                disabled={disableButton}
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-              >
-                Add Word
-              </Button>
+              <AddWordButton disableButton={disableButton} />
             </div>
           </Tooltip>
         </div>
@@ -131,11 +171,15 @@ CheckboxListSecondary.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  soundItems: state.soundItems.soundItems,
   currentSoundItem: state.soundItems.currentSoundItem,
+  currentCategory: state.soundItems.currentCategory,
+  currentSubCategory: state.soundItems.currentSubCategory,
   currentStudent: state.words.currentStudent,
   currentWords: state.words.currentWords,
+  filteredWords: state.words.filteredWords,
   students: state.words.students
 });
-export default connect(mapStateToProps, { getStudents })(
+export default connect(mapStateToProps, { getStudents, setFilteredWords })(
   withStyles(styles)(CheckboxListSecondary)
 );

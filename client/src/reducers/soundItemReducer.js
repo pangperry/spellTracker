@@ -14,7 +14,7 @@ const initialState = {
   soundItems: [{ category: "loading", subcategory: "loading" }],
   currentSubcategory: null,
   currentSoundItem: null,
-  currentCategory: "all"
+  currentCategory: "consonant sounds"
 };
 
 export default function(state = initialState, action) {

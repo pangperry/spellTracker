@@ -11,6 +11,13 @@ const WordSchema = new Schema({
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    required: true
+  },
+  subcategory: {
+    type: String
+  },
   needsWork: {
     type: Boolean,
     default: false

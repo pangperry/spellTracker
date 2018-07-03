@@ -1,7 +1,8 @@
 import {
   SET_STUDENTS,
   SET_CURRENT_STUDENT,
-  SET_CURRENT_WORDS
+  SET_CURRENT_WORDS,
+  SET_FILTERED_WORDS
 } from "../actions/types";
 import axios from "axios";
 
@@ -37,9 +38,33 @@ export const getCurrentWords = currentStudentId => dispatch => {
     .catch(err => console.log(err));
 };
 
+export const addWord = (
+  currentStudentId,
+  currentSoundItemId,
+  wordData,
+  currentWords
+) => dispatch => {
+  axios
+    .post(`/api/words/${currentStudentId}/${currentSoundItemId}`, wordData)
+    .then(res => {
+      console.log("currentWords:", currentWords);
+      console.log("data returned", res.data);
+      dispatch(setCurrentWords(currentWords.concat([res.data])));
+      // getCurrentWords(currentStudentId);
+    })
+    .catch(err => console.log(err));
+};
+
 export const setCurrentWords = words => {
   return {
     type: SET_CURRENT_WORDS,
     currentWords: words
   };
+};
+
+export const setFilteredWords = words => dispatch => {
+  dispatch({
+    type: SET_FILTERED_WORDS,
+    filteredWords: words
+  });
 };

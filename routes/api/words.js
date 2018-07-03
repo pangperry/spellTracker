@@ -26,7 +26,9 @@ router.post(
       spelling: req.body.spelling,
       misspelling: req.body.misspelling,
       student: req.params.student_id,
-      soundItem: req.params.item_id
+      soundItem: req.params.item_id,
+      category: req.body.category,
+      subcategory: req.body.subcategory
     });
     newWord
       .save()
