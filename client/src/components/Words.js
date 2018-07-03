@@ -20,10 +20,12 @@ import AddWordButton from "./AddWordButton";
 const styles = theme => ({
   root: {
     width: "100%",
+    height: "100vh",
     marginTop: theme.spacing.unit * 1,
     backgroundColor: theme.palette.background.paper,
-    maxHeight: "80vh",
-    overflowY: "auto"
+    maxHeight: "100vh",
+    overflowY: "auto",
+    paddingBottom: 150
   },
   Typography: {
     textAlign: "center",

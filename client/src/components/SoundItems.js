@@ -21,7 +21,8 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 1,
     overflowX: "auto",
     height: "100vh",
-    overflowY: "auto"
+    overflowY: "auto",
+    paddingBottom: 150
   },
   table: {}
 });
