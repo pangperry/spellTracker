@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setCurrentSoundItem } from "../actions/soundItemActions";
+import { getWordCounts } from "../actions/wordActions";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -38,6 +39,9 @@ class SimpleTable extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.category !== prevProps.category) {
       this.setState({ subcategory: "Select A Subcategory" });
+    } else if (this.props.currentWords !== prevProps.currentWords) {
+      console.log(this.props.currentWords);
+      this.props.getWordCounts(this.props.currentWords);
     }
   }
 
@@ -54,7 +58,13 @@ class SimpleTable extends React.Component {
   isSelected = id => this.state.selectedId === id;
 
   render() {
-    const { classes, soundItems, category, subcategory } = this.props;
+    const {
+      classes,
+      soundItems,
+      category,
+      subcategory,
+      wordCounts
+    } = this.props;
     if (soundItems === undefined) return null;
 
     let data;
@@ -70,7 +80,7 @@ class SimpleTable extends React.Component {
 
     const tableRows = data.map(n => {
       const isSelected = this.isSelected(n._id);
-      const count = 6;
+      const count = this.props.wordCounts[n._id];
       return (
         <TableRow
           key={n._id ? n._id.toString() : null}
@@ -108,7 +118,7 @@ class SimpleTable extends React.Component {
             {n.syllableType}
           </TableCell>
           <TableCell padding="dense">
-            {count > 0 ? (
+            {count & (count > 0) ? (
               <Typography color="primary">{count}</Typography>
             ) : (
               <Typography color="default">{count}</Typography>
@@ -151,9 +161,12 @@ const mapStateToProps = state => ({
   // soundItems: state.auth.soundItems,
   soundItems: state.soundItems.soundItems,
   subcategory: state.soundItems.currentSubcategory,
-  category: state.soundItems.currentCategory
+  category: state.soundItems.currentCategory,
+  currentWords: state.words.currentWords,
+  wordCounts: state.words.wordCounts
 });
 
-export default connect(mapStateToProps, { setCurrentSoundItem })(
-  withStyles(styles)(SimpleTable)
-);
+export default connect(mapStateToProps, {
+  setCurrentSoundItem,
+  getWordCounts
+})(withStyles(styles)(SimpleTable));

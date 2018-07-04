@@ -34,7 +34,7 @@ class FormDialog extends React.Component {
         subcategory: this.props.currentsubCategory || ""
       };
 
-      console.log(this.props.currentWords);
+      console.log(word);
       this.props.addWord(
         word.student_id,
         word.item_id,

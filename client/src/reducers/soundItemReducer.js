@@ -14,6 +14,7 @@ const initialState = {
   soundItems: [{ category: "loading", subcategory: "loading" }],
   currentSubcategory: null,
   currentSoundItem: null,
+  // TODO: make category default dynamic (i.e., first category)
   currentCategory: "consonant sounds"
 };
 

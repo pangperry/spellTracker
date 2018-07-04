@@ -2,18 +2,25 @@ import {
   SET_STUDENTS,
   SET_CURRENT_STUDENT,
   SET_CURRENT_WORDS,
-  SET_FILTERED_WORDS
+  SET_FILTERED_WORDS,
+  SET_WORD_COUNTS
 } from "../actions/types";
 
 const initialState = {
   students: ["Select Student"],
   currentStudent: null,
   currentWords: [],
-  filteredWords: []
+  filteredWords: [],
+  wordCounts: {}
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case SET_WORD_COUNTS:
+      return {
+        ...state,
+        wordCounts: action.wordCounts
+      };
     case SET_FILTERED_WORDS:
       return {
         ...state,

@@ -2,7 +2,8 @@ import {
   SET_STUDENTS,
   SET_CURRENT_STUDENT,
   SET_CURRENT_WORDS,
-  SET_FILTERED_WORDS
+  SET_FILTERED_WORDS,
+  SET_WORD_COUNTS
 } from "../actions/types";
 import axios from "axios";
 
@@ -67,4 +68,24 @@ export const setFilteredWords = words => dispatch => {
     type: SET_FILTERED_WORDS,
     filteredWords: words
   });
+};
+
+export const getWordCounts = currentWords => dispatch => {
+  const wordCounts = {};
+  for (let word of currentWords) {
+    if (wordCounts[word.soundItem]) {
+      wordCounts[word.soundItem]++;
+    } else {
+      wordCounts[word.soundItem] = 1;
+    }
+  }
+  console.log("wordsCounts in wordActions/getWordCounts:", wordCounts);
+  dispatch(setWordCounts({ ...wordCounts }));
+};
+
+export const setWordCounts = wordCounts => {
+  return {
+    type: SET_WORD_COUNTS,
+    wordCounts: wordCounts
+  };
 };
