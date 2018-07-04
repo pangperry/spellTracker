@@ -17,10 +17,7 @@ export default function(state = initialState, action) {
         teacher: {
           id: action.payload.id,
           name: action.payload.name
-        },
-        soundItems: action.payload.soundItems,
-        categoryNames: action.payload.categoryNames,
-        selector: action.payload.selector
+        }
       };
     default:
       return state;
