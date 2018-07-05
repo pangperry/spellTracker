@@ -8,6 +8,13 @@ import Button from "@material-ui/core/Button";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import {
+  setCurrentStudent,
+  setCurrentWords,
+  setFilteredWords,
+  resetWordCounts
+} from "../../actions/wordActions";
+//also need to deal with wordCounts
 import NavBar from "./Navbar";
 
 const styles = {
@@ -30,7 +37,11 @@ const styles = {
 class ButtonAppBar extends React.Component {
   onLogoutClick = e => {
     e.preventDefault();
-    this.props.logoutUser(this.props.history);
+    this.props.logoutUser();
+    this.props.setCurrentStudent(null);
+    this.props.setCurrentWords([]);
+    this.props.setFilteredWords([]);
+    this.props.resetWordCounts({});
   };
 
   render() {
@@ -96,6 +107,10 @@ const mapStateToProps = state => ({
 
 // export default withStyles(styles)(ButtonAppBar);
 
-export default connect(mapStateToProps, { logoutUser })(
-  withStyles(styles)(withRouter(ButtonAppBar))
-);
+export default connect(mapStateToProps, {
+  logoutUser,
+  setCurrentStudent,
+  setCurrentWords,
+  setFilteredWords,
+  resetWordCounts
+})(withStyles(styles)(withRouter(ButtonAppBar)));

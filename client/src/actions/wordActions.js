@@ -79,7 +79,6 @@ export const getWordCounts = currentWords => dispatch => {
       wordCounts[word.soundItem] = 1;
     }
   }
-  console.log("wordsCounts in wordActions/getWordCounts:", wordCounts);
   dispatch(setWordCounts({ ...wordCounts }));
 };
 
@@ -88,4 +87,10 @@ export const setWordCounts = wordCounts => {
     type: SET_WORD_COUNTS,
     wordCounts: wordCounts
   };
+};
+export const resetWordCounts = wordCounts => dispatch => {
+  dispatch({
+    type: SET_WORD_COUNTS,
+    wordCounts: wordCounts
+  });
 };
