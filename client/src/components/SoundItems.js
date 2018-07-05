@@ -40,7 +40,6 @@ class SimpleTable extends React.Component {
     if (this.props.category !== prevProps.category) {
       this.setState({ subcategory: "Select A Subcategory" });
     } else if (this.props.currentWords !== prevProps.currentWords) {
-      console.log(this.props.currentWords);
       this.props.getWordCounts(this.props.currentWords);
     }
   }
@@ -51,7 +50,6 @@ class SimpleTable extends React.Component {
     let currentSoundItem = this.props.soundItems.filter(
       item => item._id === id
     )[0];
-    console.log(currentSoundItem);
     this.props.setCurrentSoundItem(currentSoundItem);
   };
 
