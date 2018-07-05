@@ -63,6 +63,13 @@ export const setCurrentWords = words => {
   };
 };
 
+export const resetCurrentWords = currentWords => dispatch => {
+  dispatch({
+    type: SET_CURRENT_WORDS,
+    currentWords: currentWords
+  });
+};
+
 export const setFilteredWords = words => dispatch => {
   dispatch({
     type: SET_FILTERED_WORDS,
@@ -88,6 +95,7 @@ export const setWordCounts = wordCounts => {
     wordCounts: wordCounts
   };
 };
+
 export const resetWordCounts = wordCounts => dispatch => {
   dispatch({
     type: SET_WORD_COUNTS,

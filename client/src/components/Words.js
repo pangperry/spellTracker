@@ -63,12 +63,16 @@ class CheckboxListSecondary extends React.Component {
 
   componentDidUpdate(prevProps) {
     // TODO: add tests and refactor this mess:
+    //none of the below matters if there isn't a current student
+
+    //change in current words
     if (this.props.currentWords !== prevProps.currentWords) {
       if (this.props.currentWords) {
         this.props.setFilteredWords(
           this.props.currentWords ? this.props.currentWords.slice() : []
         );
       }
+      //change in current sound
     } else if (
       this.props.currentSoundItem &&
       this.props.currentSoundItem !== prevProps.currentSoundItem
@@ -79,6 +83,8 @@ class CheckboxListSecondary extends React.Component {
           .filter(word => word.soundItem === this.props.currentSoundItem._id);
         this.props.setFilteredWords(filteredWords);
       }
+
+      //change in current category
     } else if (
       this.props.currentCategory &&
       this.props.currentCategory !== prevProps.currentCategory
