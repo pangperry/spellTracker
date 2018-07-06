@@ -27,6 +27,9 @@ const styles = theme => ({
     minWidth: 250,
     width: "100%"
   },
+  subheader: {
+    color: "red"
+  },
   actions: {
     display: "flex"
   },
@@ -74,7 +77,9 @@ class RecipeReviewCard extends React.Component {
           </CardActions>
 
           <CardHeader
-            className={classes.header}
+            classes={{
+              subheader: classes.subheader
+            }}
             action={
               <Tooltip id="tooltip-icon" title="ADD TO EXPORT LIST">
                 <IconButton>
