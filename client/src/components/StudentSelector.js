@@ -54,7 +54,7 @@ class SimpleMenu extends React.Component {
 
     let button = currentStudent ? currentStudent.name : this.state.student;
 
-    let studentItems =
+    let studentNames =
       students && students.length > 0
         ? students.map(student => (
             <MenuItem
@@ -82,7 +82,7 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {studentItems}
+          {studentNames}
         </Menu>
       </div>
     );
