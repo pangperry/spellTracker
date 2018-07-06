@@ -14,6 +14,7 @@ import {
   Paper,
   Typography
 } from "@material-ui/core";
+import Hidden from "@material-ui/core/Hidden";
 import SubcategoryNav from "./SubcategoryNav";
 
 const styles = theme => ({
@@ -87,18 +88,22 @@ class SimpleTable extends React.Component {
           hover
           selected={isSelected}
         >
-          <TableCell
-            padding="dense"
-            onClick={event => this.handleClick(event, n._id)}
-          >
-            {n.sound}
-          </TableCell>
-          <TableCell
-            padding="dense"
-            onClick={event => this.handleClick(event, n._id)}
-          >
-            {n.spelling}
-          </TableCell>
+          <Hidden smDown>
+            <TableCell
+              padding="dense"
+              onClick={event => this.handleClick(event, n._id)}
+            >
+              {n.sound}
+            </TableCell>
+          </Hidden>
+          <Hidden xsDown>
+            <TableCell
+              padding="dense"
+              onClick={event => this.handleClick(event, n._id)}
+            >
+              {n.spelling}
+            </TableCell>
+          </Hidden>
           <TableCell
             padding="dense"
             onClick={event => this.handleClick(event, n._id)}
@@ -111,12 +116,14 @@ class SimpleTable extends React.Component {
           >
             {n.level}
           </TableCell>
-          <TableCell
-            padding="dense"
-            onClick={event => this.handleClick(event, n._id)}
-          >
-            {n.syllableType}
-          </TableCell>
+          <Hidden smDown>
+            <TableCell
+              padding="dense"
+              onClick={event => this.handleClick(event, n._id)}
+            >
+              {n.syllableType}
+            </TableCell>
+          </Hidden>
           <TableCell padding="dense">
             {count & (count > 0) ? (
               <Typography color="primary">{count}</Typography>
@@ -130,11 +137,17 @@ class SimpleTable extends React.Component {
 
     const tableHeaders = (
       <TableRow>
-        <TableCell padding="dense">sound</TableCell>
-        <TableCell padding="dense">spelling</TableCell>
+        <Hidden smDown>
+          <TableCell padding="dense">sound</TableCell>
+        </Hidden>
+        <Hidden xsDown>
+          <TableCell padding="dense">spelling</TableCell>
+        </Hidden>
         <TableCell padding="dense">keyword</TableCell>
         <TableCell padding="dense">level</TableCell>
-        <TableCell padding="dense">syllableType</TableCell>
+        <Hidden smDown>
+          <TableCell padding="dense">syllableType</TableCell>
+        </Hidden>
         <TableCell padding="dense">current words</TableCell>
       </TableRow>
     );

@@ -30,10 +30,10 @@ function GridIntegration(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={8}>
-        <Grid item xs={8}>
+        <Grid item xs={6} sm={7} md={8}>
           <SoundItems />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={5} md={4}>
           <Words />
         </Grid>
       </Grid>
