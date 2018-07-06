@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import {
   setCurrentStudent,
@@ -10,6 +11,7 @@ import {
   resetCurrentWords,
   getStudents
 } from "../actions/wordActions";
+import AddStudentForm from "./AddStudentForm";
 
 class SimpleMenu extends React.Component {
   state = {
@@ -82,6 +84,8 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
+          <AddStudentForm />
+          <Divider />
           {studentNames}
         </Menu>
       </div>

@@ -16,6 +16,16 @@ export const getStudents = () => dispatch => {
     .catch(err => console.log("errors"));
 };
 
+export const addStudent = name => dispatch => {
+  axios
+    .post("/api/teachers/student", name)
+    .then(res => {
+      console.log(res.data);
+      dispatch(setStudents(res.data.students));
+    })
+    .catch(err => console.log("errors"));
+};
+
 export const setStudents = students => {
   return {
     type: SET_STUDENTS,
