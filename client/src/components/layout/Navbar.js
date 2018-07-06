@@ -10,7 +10,6 @@ import {
   setCurrentSoundItem,
   initSelector
 } from "../../actions/soundItemActions";
-// import { getStudents } from "../../actions/wordActions";
 
 const styles = {
   root: {
