@@ -38,9 +38,11 @@ class SimpleTable extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.category !== prevProps.category) {
-      this.setState({ subcategory: "Select A Subcategory" });
+      this.setState({ subcategory: "Select A Subcategory", selectedId: -1 });
     } else if (this.props.currentWords !== prevProps.currentWords) {
       this.props.getWordCounts(this.props.currentWords);
+    } else if (this.props.subcategory !== prevProps.subcategory) {
+      this.setState({ selectedId: -1 });
     }
   }
 
