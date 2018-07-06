@@ -45,7 +45,6 @@ class FormDialog extends React.Component {
           <DialogTitle id="form-dialog-title">Add Student</DialogTitle>
           <DialogContent>
             <DialogContentText>Please add the student's name</DialogContentText>
-            <h1>{this.state.name}</h1>
             <TextField
               autoFocus
               margin="dense"
