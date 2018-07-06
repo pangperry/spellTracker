@@ -16,7 +16,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { getStudents, setFilteredWords } from "../actions/wordActions";
 import AddWordButton from "./AddWordButton";
-// import WordsMenu from "./WordsMenu";
+import WordsMenu from "./WordsMenu";
 
 const styles = theme => ({
   root: {
@@ -146,6 +146,7 @@ class CheckboxListSecondary extends React.Component {
 
     return (
       <Paper className={classes.root}>
+        <WordsMenu />
         <Typography
           color="primary"
           className={classes.Typography}
