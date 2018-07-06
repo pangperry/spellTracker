@@ -7,7 +7,8 @@ import {
   setCurrentStudent,
   getCurrentWords,
   resetWordCounts,
-  resetCurrentWords
+  resetCurrentWords,
+  getStudents
 } from "../actions/wordActions";
 
 class SimpleMenu extends React.Component {
@@ -15,6 +16,10 @@ class SimpleMenu extends React.Component {
     anchorEl: null,
     student: "Select a student"
   };
+
+  componentDidMount() {
+    this.props.getStudents();
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentStudent !== prevProps.currentStudent) {
@@ -92,5 +97,6 @@ export default connect(mapStateToProps, {
   setCurrentStudent,
   getCurrentWords,
   resetWordCounts,
-  resetCurrentWords
+  resetCurrentWords,
+  getStudents
 })(SimpleMenu);
