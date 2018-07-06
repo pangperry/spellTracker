@@ -115,6 +115,7 @@ class ComposedTextField extends React.Component {
         >
           <InputLabel htmlFor="password-helper">Password</InputLabel>
           <Input
+            type="password"
             id="password-helper"
             value={this.state.password}
             onChange={this.handleChange("password")}
@@ -133,6 +134,7 @@ class ComposedTextField extends React.Component {
         >
           <InputLabel htmlFor="password2-helper">Confirm Password</InputLabel>
           <Input
+            type="password"
             id="password2-helper"
             value={this.state.password2}
             onChange={this.handleChange("password2")}
