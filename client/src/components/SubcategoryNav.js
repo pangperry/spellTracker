@@ -23,6 +23,9 @@ const styles = {
     marginTop: 20,
     marginLeft: 45,
     marginBottom: 10
+  },
+  Divider: {
+    marginTop: 112
   }
 };
 
@@ -71,6 +74,7 @@ class TemporaryDrawer extends React.Component {
 
     const sideList = (
       <div className={classes.list}>
+        <Divider className={classes.Divider} />
         <List>{subcategoryList}</List>
       </div>
     );
