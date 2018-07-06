@@ -62,49 +62,50 @@ class CheckboxListSecondary extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // TODO: add tests and refactor this mess:
-    //none of the below matters if there isn't a current student
-
-    //change in current words
-    if (this.props.currentWords !== prevProps.currentWords) {
-      if (this.props.currentWords) {
-        this.props.setFilteredWords(
-          this.props.currentWords ? this.props.currentWords.slice() : []
-        );
-      }
-      //change in current sound
-    } else if (
-      this.props.currentSoundItem &&
-      this.props.currentSoundItem !== prevProps.currentSoundItem
-    ) {
-      if (this.props.currentWords && this.props.currentSoundItem) {
-        let filteredWords = this.props.currentWords
-          .slice()
-          .filter(word => word.soundItem === this.props.currentSoundItem._id);
-        this.props.setFilteredWords(filteredWords);
-      }
-
-      //change in current category
-    } else if (
-      this.props.currentCategory &&
+    if (
+      this.props.currentWords !== prevProps.currentWords ||
+      this.props.currentSoundItem !== prevProps.currentSoundItem ||
+      this.props.currentSubcategory !== prevProps.currentSubcategory ||
       this.props.currentCategory !== prevProps.currentCategory
     ) {
-      let filteredWords = this.props.currentWords
-        .slice()
-        .filter(word => word.category === this.props.currentCategory);
+      let filteredWords = this.props.currentStudent
+        ? this.filterWords(
+            this.props.currentWords,
+            this.props.currentSoundItem,
+            this.props.currentSubcategory,
+            this.props.currentCategory
+          )
+        : [];
       this.props.setFilteredWords(filteredWords);
-    } else if (
-      this.props.currentSubcategory &&
-      this.props.currentSubcategory !== prevProps.currentSubcategory
-    ) {
-      if (this.props.currentWords) {
-        let filteredWords = this.props.currentWords
-          .slice()
-          .filter(word => word.subcategory === this.props.currentSubCategory);
-        this.props.setFilteredWords(filteredWords);
-      }
     }
   }
+
+  //TODO: consider moving this to actions?
+  filterWords = (
+    currentWords,
+    currentSoundItem,
+    currentSubcategory,
+    currentCategory
+  ) => {
+    if (!currentWords.length) {
+      return [];
+    }
+    if (currentSoundItem) {
+      return currentWords
+        .slice()
+        .filter(word => word.soundItem === currentSoundItem._id);
+    }
+    if (currentSubcategory) {
+      return currentWords
+        .slice()
+        .filter(word => word.subcategory === currentSubcategory);
+    }
+    if (currentCategory) {
+      return currentWords
+        .slice()
+        .filter(word => word.category === currentCategory);
+    }
+  };
 
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -182,7 +183,7 @@ const mapStateToProps = state => ({
   soundItems: state.soundItems.soundItems,
   currentSoundItem: state.soundItems.currentSoundItem,
   currentCategory: state.soundItems.currentCategory,
-  currentSubCategory: state.soundItems.currentSubCategory,
+  currentSubcategory: state.soundItems.currentSubCategory,
   currentStudent: state.words.currentStudent,
   currentWords: state.words.currentWords,
   filteredWords: state.words.filteredWords,
