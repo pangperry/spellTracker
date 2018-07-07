@@ -53,6 +53,7 @@ router.post(
     if (req.body.spelling) wordFields.spelling = req.body.spelling;
     if (req.body.misspelling) wordFields.misspelling = req.body.misspelling;
     if (req.body.needsWork) wordFields.needsWork = req.body.needsWork;
+    if (req.body.sentence) wordFields.sentence = req.body.sentence;
 
     Word.findOne({ _id: req.params.id })
       .then(word => {
