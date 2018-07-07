@@ -34,25 +34,20 @@ class FormDialog extends React.Component {
         subcategory: this.props.currentsubCategory || ""
       };
 
-      console.log(word);
       this.props.addWord(
         word.student_id,
         word.item_id,
         word,
         this.props.currentWords ? this.props.currentWords.slice() : []
       );
-      // console.log(word);
-      //pass in the dispacth action through words
-      //pass in currentSoundItem._id through props
-      //
+
+      this.setState({
+        open: false,
+        spelling: "",
+        misspelling: "",
+        sentence: ""
+      });
     }
-    const newState = {
-      ...this.state,
-      spelling: "",
-      misspelling: "",
-      sentence: ""
-    };
-    this.setState({ newState });
   };
 
   handleChange = name => event => {

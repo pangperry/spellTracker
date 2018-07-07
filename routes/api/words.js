@@ -25,6 +25,7 @@ router.post(
     const newWord = new Word({
       spelling: req.body.spelling,
       misspelling: req.body.misspelling,
+      sentence: req.body.sentence,
       student: req.params.student_id,
       soundItem: req.params.item_id,
       category: req.body.category,

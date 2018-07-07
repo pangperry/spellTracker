@@ -105,7 +105,7 @@ class RecipeReviewCard extends React.Component {
               <Typography paragraph variant="body2">
                 Sentence:
               </Typography>
-              <Typography paragraph> {word.setence}</Typography>
+              <Typography paragraph> {word.sentence}</Typography>
             </CardContent>
           </Collapse>
         </Card>
