@@ -46,11 +46,12 @@ class CenteredTabs extends React.Component {
     return (
       <Paper className={classes.root}>
         <Tabs
+          scrollable
+          scrollButtons="auto"
           value={this.state.value}
           onChange={this.handleChange}
           indicatorColor="primary"
           textColor="primary"
-          centered
         >
           {categories.map(item => <Tab key={item} label={item} />)}
         </Tabs>
