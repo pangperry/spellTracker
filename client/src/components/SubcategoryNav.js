@@ -9,7 +9,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
-import { List, ListItem, Typography } from "@material-ui/core";
+import { List, ListItem } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
 const styles = {

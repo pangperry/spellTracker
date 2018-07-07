@@ -2,8 +2,6 @@ import {
   SET_CURRENT_CATEGORY,
   SET_CURRENT_SUBCATEGORY,
   SET_CURRENT_SOUND_ITEM,
-  GET_CATEGORIES,
-  GET_SUBCATEGORIES,
   SET_SOUND_ITEMS,
   SET_CATEGORY_NAMES,
   SET_SELECTOR
@@ -29,10 +27,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         categoryNames: action.categoryNames
-      };
-      return {
-        ...state,
-        soundItems: action.soundItems
       };
     case SET_SOUND_ITEMS:
       return {

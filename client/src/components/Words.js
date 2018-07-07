@@ -3,16 +3,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import Avatar from "@material-ui/core/Avatar";
 import { Paper, Typography } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import WordCard from "./WordCard";
 import StudentSelector from "./StudentSelector";
-import axios from "axios";
 import { connect } from "react-redux";
 import { getStudents, setFilteredWords } from "../actions/wordActions";
 import AddWordButton from "./AddWordButton";
@@ -128,7 +122,6 @@ class CheckboxListSecondary extends React.Component {
       classes,
       currentSoundItem,
       currentStudent,
-      currentWords,
       filteredWords
     } = this.props;
 

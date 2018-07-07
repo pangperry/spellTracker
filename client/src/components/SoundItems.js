@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setCurrentSoundItem } from "../actions/soundItemActions";
@@ -59,13 +59,7 @@ class SimpleTable extends React.Component {
   isSelected = id => this.state.selectedId === id;
 
   render() {
-    const {
-      classes,
-      soundItems,
-      category,
-      subcategory,
-      wordCounts
-    } = this.props;
+    const { classes, soundItems, category, subcategory } = this.props;
     if (soundItems === undefined) return null;
 
     let data;
