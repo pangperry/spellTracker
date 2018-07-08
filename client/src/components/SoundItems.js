@@ -63,9 +63,11 @@ class SimpleTable extends React.Component {
     if (soundItems === undefined) return null;
 
     let data;
-    if (category === "all") {
-      data = soundItems;
-    } else if (subcategory) {
+    //TODO: decide if I will add back in "all"
+    // if (category === "all") {
+    //   data = soundItems;
+    // } else
+    if (subcategory) {
       data = soundItems.filter(
         item => item.subcategory === subcategory && item.category === category
       );
