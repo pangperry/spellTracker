@@ -70,6 +70,7 @@ class CheckboxListSecondary extends React.Component {
             this.props.currentCategory
           )
         : [];
+      filteredWords.sort((a, b) => new Date(b.date) - new Date(a.date));
       this.props.setFilteredWords(filteredWords);
     }
   }
