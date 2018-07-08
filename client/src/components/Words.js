@@ -68,9 +68,9 @@ class CheckboxListSecondary extends React.Component {
             this.props.currentSoundItem,
             this.props.currentSubcategory,
             this.props.currentCategory
-          )
+          ).sort((a, b) => new Date(b.date) - new Date(a.date))
         : [];
-      filteredWords.sort((a, b) => new Date(b.date) - new Date(a.date));
+
       this.props.setFilteredWords(filteredWords);
     }
   }
@@ -82,6 +82,9 @@ class CheckboxListSecondary extends React.Component {
     currentSubcategory,
     currentCategory
   ) => {
+    if (currentCategory === "all") {
+      return [...currentWords];
+    }
     if (!currentWords.length) {
       return [];
     }
