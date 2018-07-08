@@ -31,8 +31,10 @@ class FormDialog extends React.Component {
         student_id: this.props.currentStudent._id,
         item_id: this.props.currentSoundItem._id,
         category: this.props.currentCategory,
-        subcategory: this.props.currentsubCategory || ""
+        subcategory: this.props.currentsubCategory || "",
+        needsWork: true
       };
+      console.log("word: ", word);
 
       this.props.addWord(
         word.student_id,
@@ -42,6 +44,7 @@ class FormDialog extends React.Component {
       );
 
       this.setState({
+        ...this.state,
         open: false,
         spelling: "",
         misspelling: "",

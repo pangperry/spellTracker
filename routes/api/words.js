@@ -26,6 +26,7 @@ router.post(
       spelling: req.body.spelling,
       misspelling: req.body.misspelling,
       sentence: req.body.sentence,
+      needsWork: req.body.needsWork,
       student: req.params.student_id,
       soundItem: req.params.item_id,
       category: req.body.category,
@@ -52,7 +53,8 @@ router.post(
     const wordFields = {};
     if (req.body.spelling) wordFields.spelling = req.body.spelling;
     if (req.body.misspelling) wordFields.misspelling = req.body.misspelling;
-    if (req.body.needsWork) wordFields.needsWork = req.body.needsWork;
+    if (req.body.needsWork !== undefined)
+      wordFields.needsWork = req.body.needsWork;
     if (req.body.sentence) wordFields.sentence = req.body.sentence;
 
     Word.findOne({ _id: req.params.id })

@@ -14,6 +14,8 @@ import Star from "@material-ui/icons/Star";
 import StarBorder from "@material-ui/icons/StarBorder";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Tooltip from "@material-ui/core/Tooltip";
+import { connect } from "react-redux";
+import { editWord } from "../actions/wordActions";
 
 const styles = theme => ({
   card: {
@@ -48,7 +50,15 @@ class WordCard extends React.Component {
   };
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+    if (name === "checkedStar") {
+      let wordData = {
+        id: this.props.word._id,
+        needsWork: !this.props.word.needsWork
+      };
+      this.props.editWord(wordData, this.props.currentWords);
+    } else {
+      this.setState({ [name]: event.target.checked });
+    }
   };
 
   render() {
@@ -118,4 +128,10 @@ WordCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(WordCard);
+const mapStateToProps = state => ({
+  currentWords: state.words.currentWords
+});
+
+export default connect(mapStateToProps, { editWord })(
+  withStyles(styles)(WordCard)
+);

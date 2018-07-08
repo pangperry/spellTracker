@@ -4,6 +4,7 @@ import {
   SET_CURRENT_WORDS,
   SET_FILTERED_WORDS,
   SET_WORD_COUNTS
+  // EDIT_WORD
 } from "../actions/types";
 import axios from "axios";
 
@@ -20,7 +21,6 @@ export const addStudent = name => dispatch => {
   axios
     .post("/api/teachers/student", name)
     .then(res => {
-      console.log(res.data);
       dispatch(setStudents(res.data.students));
     })
     .catch(err => console.log("errors"));
@@ -58,10 +58,24 @@ export const addWord = (
   axios
     .post(`/api/words/${currentStudentId}/${currentSoundItemId}`, wordData)
     .then(res => {
-      console.log("currentWords:", currentWords);
-      console.log("data returned", res.data);
       dispatch(setCurrentWords(currentWords.concat([res.data])));
-      // getCurrentWords(currentStudentId);
+    })
+    .catch(err => console.log(err));
+};
+
+export const editWord = (wordData, currentWords) => dispatch => {
+  axios
+    .post(`/api/words/${wordData.id}`, wordData)
+    .then(res => {
+      let index = currentWords.findIndex(wrd => {
+        return wrd._id === wordData.id;
+      });
+
+      let newCurrentWords = [...currentWords]
+        .slice(0, index)
+        .concat([res.data])
+        .concat([...currentWords].slice(index + 1));
+      dispatch(setCurrentWords(newCurrentWords));
     })
     .catch(err => console.log(err));
 };

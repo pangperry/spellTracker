@@ -183,6 +183,7 @@ const mapStateToProps = state => ({
   filteredWords: state.words.filteredWords,
   students: state.words.students
 });
+
 export default connect(mapStateToProps, { getStudents, setFilteredWords })(
   withStyles(styles)(CheckboxListSecondary)
 );
