@@ -3,7 +3,8 @@ import {
   SET_CURRENT_STUDENT,
   SET_CURRENT_WORDS,
   SET_FILTERED_WORDS,
-  SET_WORD_COUNTS
+  SET_WORD_COUNTS,
+  SET_NEEDSWORK_COUNTS
   // EDIT_WORD
 } from "../actions/types";
 import axios from "axios";
@@ -110,13 +111,33 @@ export const getWordCounts = currentWords => dispatch => {
       wordCounts[word.soundItem] = 1;
     }
   }
-  dispatch(setWordCounts({ ...wordCounts }));
+  dispatch(setWordCounts(wordCounts));
 };
 
 export const setWordCounts = wordCounts => {
   return {
     type: SET_WORD_COUNTS,
     wordCounts: wordCounts
+  };
+};
+
+export const getNeedsWorkCounts = currentWords => dispatch => {
+  const needsWorkCounts = {};
+  for (let word of currentWords) {
+    if (needsWorkCounts[word.soundItem] && word.needsWork) {
+      needsWorkCounts[word.soundItem]++;
+    } else if (!needsWorkCounts[word.soundItem] && word.needsWork) {
+      needsWorkCounts[word.soundItem] = 1;
+    }
+  }
+
+  dispatch(setNeedsWorkCounts(needsWorkCounts));
+};
+
+export const setNeedsWorkCounts = needsWorkCounts => {
+  return {
+    type: SET_NEEDSWORK_COUNTS,
+    needsWorkCounts: needsWorkCounts
   };
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setCurrentSoundItem } from "../actions/soundItemActions";
-import { getWordCounts } from "../actions/wordActions";
+import { getWordCounts, getNeedsWorkCounts } from "../actions/wordActions";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -11,8 +11,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Paper,
-  Typography
+  Paper
 } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 import SubcategoryNav from "./SubcategoryNav";
@@ -29,6 +28,15 @@ const styles = theme => ({
   table: {},
   Subcatdiv: {
     height: 90
+  },
+  ratioDanger: {
+    color: "red"
+  },
+  ratioWarning: {
+    color: "#FDD835"
+  },
+  ratioClear: {
+    color: "#00C853"
   }
 });
 
@@ -42,6 +50,7 @@ class SimpleTable extends React.Component {
       this.setState({ subcategory: "Select A Subcategory", selectedId: -1 });
     } else if (this.props.currentWords !== prevProps.currentWords) {
       this.props.getWordCounts(this.props.currentWords);
+      this.props.getNeedsWorkCounts(this.props.currentWords);
     } else if (this.props.subcategory !== prevProps.subcategory) {
       this.setState({ selectedId: -1 });
     }
@@ -59,7 +68,14 @@ class SimpleTable extends React.Component {
   isSelected = id => this.state.selectedId === id;
 
   render() {
-    const { classes, soundItems, category, subcategory } = this.props;
+    const {
+      classes,
+      soundItems,
+      category,
+      subcategory,
+      wordCounts,
+      needsWorkCounts
+    } = this.props;
     if (soundItems === undefined) return null;
 
     let data;
@@ -75,7 +91,19 @@ class SimpleTable extends React.Component {
 
     const tableRows = data.map(n => {
       const isSelected = this.isSelected(n._id);
-      const count = this.props.wordCounts[n._id];
+      const count = wordCounts[n._id];
+      const needsWorkCount = needsWorkCounts[n._id];
+      const ratio = needsWorkCount ? needsWorkCount / count : 0;
+
+      let ratioColor;
+      if (ratio === 0) {
+        ratioColor = classes.ratioClear;
+      } else if (ratio < 0.5) {
+        ratioColor = classes.ratioWarning;
+      } else {
+        ratioColor = classes.ratioDanger;
+      }
+
       return (
         <TableRow
           key={n._id ? n._id.toString() : null}
@@ -118,12 +146,8 @@ class SimpleTable extends React.Component {
               {n.syllableType}
             </TableCell>
           </Hidden>
-          <TableCell padding="dense">
-            {count & (count > 0) ? (
-              <Typography color="primary">{count}</Typography>
-            ) : (
-              <Typography color="default">{count}</Typography>
-            )}
+          <TableCell className={ratioColor} padding="dense">
+            {count}
           </TableCell>
         </TableRow>
       );
@@ -170,10 +194,12 @@ const mapStateToProps = state => ({
   subcategory: state.soundItems.currentSubcategory,
   category: state.soundItems.currentCategory,
   currentWords: state.words.currentWords,
-  wordCounts: state.words.wordCounts
+  wordCounts: state.words.wordCounts,
+  needsWorkCounts: state.words.needsWorkCounts
 });
 
 export default connect(mapStateToProps, {
   setCurrentSoundItem,
-  getWordCounts
+  getWordCounts,
+  getNeedsWorkCounts
 })(withStyles(styles)(SimpleTable));

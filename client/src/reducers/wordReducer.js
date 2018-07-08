@@ -3,7 +3,8 @@ import {
   SET_CURRENT_STUDENT,
   SET_CURRENT_WORDS,
   SET_FILTERED_WORDS,
-  SET_WORD_COUNTS
+  SET_WORD_COUNTS,
+  SET_NEEDSWORK_COUNTS
 } from "../actions/types";
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   currentStudent: null,
   currentWords: [],
   filteredWords: [],
-  wordCounts: {}
+  wordCounts: {},
+  needsWorkCounts: {}
 };
 
 export default function(state = initialState, action) {
@@ -20,6 +22,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         wordCounts: action.wordCounts
+      };
+    case SET_NEEDSWORK_COUNTS:
+      return {
+        ...state,
+        needsWorkCounts: action.needsWorkCounts
       };
     case SET_FILTERED_WORDS:
       return {
