@@ -40,7 +40,7 @@ const styles = theme => ({
 class WordCard extends React.Component {
   state = {
     expanded: false,
-    checkedStar: true
+    checkedStar: false
   };
 
   handleExpandClick = () => {
@@ -62,7 +62,7 @@ class WordCard extends React.Component {
               <Checkbox
                 checkedIcon={<Star />}
                 icon={<StarBorder />}
-                checked={this.state.checkedA}
+                checked={word.needsWork}
                 onChange={this.handleChange("checkedStar")}
                 value="checkedStar"
               />
