@@ -84,21 +84,27 @@ class CheckboxListSecondary extends React.Component {
   ) => {
     if (currentCategory === "all") {
       return [...currentWords];
+      console.log("all");
     }
     if (!currentWords.length) {
+      console.log("no current words");
       return [];
     }
     if (currentSoundItem) {
+      console.log("soundItem");
       return currentWords
         .slice()
         .filter(word => word.soundItem === currentSoundItem._id);
     }
     if (currentSubcategory) {
+      console.log("subcategory change");
+      console.log(currentWords);
       return currentWords
         .slice()
         .filter(word => word.subcategory === currentSubcategory);
     }
     if (currentCategory) {
+      console.log("current category");
       return currentWords
         .slice()
         .filter(word => word.category === currentCategory);
@@ -181,7 +187,7 @@ const mapStateToProps = state => ({
   soundItems: state.soundItems.soundItems,
   currentSoundItem: state.soundItems.currentSoundItem,
   currentCategory: state.soundItems.currentCategory,
-  currentSubcategory: state.soundItems.currentSubCategory,
+  currentSubcategory: state.soundItems.currentSubcategory,
   currentStudent: state.words.currentStudent,
   currentWords: state.words.currentWords,
   filteredWords: state.words.filteredWords,

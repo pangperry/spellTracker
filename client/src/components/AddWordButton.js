@@ -30,8 +30,8 @@ class FormDialog extends React.Component {
         sentence: this.state.sentence,
         student_id: this.props.currentStudent._id,
         item_id: this.props.currentSoundItem._id,
-        category: this.props.currentCategory,
-        subcategory: this.props.currentsubCategory || "",
+        category: this.props.currentSoundItem.category,
+        subcategory: this.props.currentSoundItem.subcategory,
         needsWork: true,
         level: this.props.currentSoundItem.level
       };

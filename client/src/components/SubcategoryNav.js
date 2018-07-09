@@ -43,6 +43,10 @@ class TemporaryDrawer extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.category !== prevProps.category) {
       this.setState({ subcategory: "Select A Subcategory" });
+    } else if (this.props.subcategory !== prevProps.subcategory) {
+      if (this.props.subcategory === null) {
+        this.setState({ subcategory: "Select A Subcategory" });
+      }
     }
   }
 
@@ -124,6 +128,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   // selector: state.auth.selector,
   category: state.soundItems.currentCategory,
+  subcategory: state.soundItems.currentSubcategory,
   selector: state.soundItems.selector
 });
 export default connect(mapStateToProps, {
