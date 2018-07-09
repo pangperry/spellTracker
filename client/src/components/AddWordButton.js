@@ -32,9 +32,9 @@ class FormDialog extends React.Component {
         item_id: this.props.currentSoundItem._id,
         category: this.props.currentCategory,
         subcategory: this.props.currentsubCategory || "",
-        needsWork: true
+        needsWork: true,
+        level: this.props.currentSoundItem.level
       };
-      console.log("word: ", word);
 
       this.props.addWord(
         word.student_id,

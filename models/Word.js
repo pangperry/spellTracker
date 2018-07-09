@@ -15,6 +15,10 @@ const WordSchema = new Schema({
     type: String,
     required: true
   },
+  level: {
+    type: String,
+    required: true
+  },
   subcategory: {
     type: String
   },

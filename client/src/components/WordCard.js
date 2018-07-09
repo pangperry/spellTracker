@@ -98,7 +98,7 @@ class WordCard extends React.Component {
                 </IconButton>
               </Tooltip>
             }
-            title={word.spelling}
+            title={word.spelling + " " + word.level}
             subheader={word.misspelling}
           />
 

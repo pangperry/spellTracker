@@ -30,7 +30,8 @@ router.post(
       student: req.params.student_id,
       soundItem: req.params.item_id,
       category: req.body.category,
-      subcategory: req.body.subcategory
+      subcategory: req.body.subcategory,
+      level: req.body.level
     });
     newWord
       .save()
