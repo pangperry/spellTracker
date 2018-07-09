@@ -29,15 +29,15 @@ const styles = theme => ({
   Subcatdiv: {
     height: 90
   },
-  ratioDanger: {
+  CountWarning: {
     color: "red"
-  },
-  ratioWarning: {
-    color: "#FDD835"
-  },
-  ratioClear: {
-    color: "#00C853"
   }
+  // ratioWarning: {
+  //   color: "#FDD835"
+  // },
+  // ratioClear: {
+  //   color: "#00C853"
+  // }
 });
 
 class SimpleTable extends React.Component {
@@ -93,16 +93,15 @@ class SimpleTable extends React.Component {
       const isSelected = this.isSelected(n._id);
       const count = wordCounts[n._id];
       const needsWorkCount = needsWorkCounts[n._id];
-      const ratio = needsWorkCount ? needsWorkCount / count : 0;
 
-      let ratioColor;
-      if (ratio === 0) {
-        ratioColor = classes.ratioClear;
-      } else if (ratio < 0.5) {
-        ratioColor = classes.ratioWarning;
-      } else {
-        ratioColor = classes.ratioDanger;
-      }
+      // let ratioColor;
+      // if (ratio === 0) {
+      //   ratioColor = classes.ratioClear;
+      // } else if (ratio < 0.5) {
+      //   ratioColor = classes.ratioWarning;
+      // } else {
+      //   ratioColor = classes.ratioDanger;
+      // }
 
       return (
         <TableRow
@@ -146,7 +145,10 @@ class SimpleTable extends React.Component {
               {n.syllableType}
             </TableCell>
           </Hidden>
-          <TableCell className={ratioColor} padding="dense">
+          <TableCell
+            className={needsWorkCount ? classes.CountWarning : null}
+            padding="dense"
+          >
             {count}
           </TableCell>
         </TableRow>
