@@ -7,6 +7,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Menu from "@material-ui/icons/Menu";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const styles = {
   list: {
@@ -40,6 +41,8 @@ class TemporaryDrawer extends React.Component {
         <Divider className={classes.Divider} />
         <List>
           <ListItem button>Select Words for Export</ListItem>
+          <ListItem button>Delete Student</ListItem>
+          <ListItem button>Delete Word</ListItem>
         </List>
       </div>
     );
@@ -61,7 +64,9 @@ class TemporaryDrawer extends React.Component {
             onClick={this.toggleDrawer("right", false)}
             onKeyDown={this.toggleDrawer("right", false)}
           >
-            {sideList}
+            <Tooltip id="tooltip-icon" title="not working yet">
+              {sideList}
+            </Tooltip>
           </div>
         </Drawer>
       </div>

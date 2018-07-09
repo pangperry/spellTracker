@@ -84,9 +84,13 @@ class WordCard extends React.Component {
               subheader: classes.subheader
             }}
             action={
-              <Tooltip id="tooltip-icon" title="ADD TO EXPORT LIST">
+              <Tooltip
+                id="tooltip-icon"
+                title="(not working yet) ADD TO EXPORT LIST"
+              >
                 <IconButton>
                   <Checkbox
+                    disabled
                     checked={this.state.added}
                     onChange={this.handleChange("addedWord")}
                     value="addedWord"
