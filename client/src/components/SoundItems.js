@@ -104,11 +104,7 @@ class SimpleTable extends React.Component {
       // }
 
       return (
-        <TableRow
-          key={n._id ? n._id.toString() : null}
-          hover
-          selected={isSelected}
-        >
+        <TableRow key={n._id ? n._id.toString() : null} selected={isSelected}>
           <Hidden smDown>
             <TableCell
               padding="dense"
