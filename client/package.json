@@ -9,7 +9,6 @@
     "install": "^0.11.0",
     "jwt-decode": "^2.2.0",
     "lodash.isempty": "^4.4.0",
-    "npm": "^6.9.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
