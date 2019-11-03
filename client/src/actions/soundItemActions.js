@@ -53,8 +53,8 @@ export const getCategoryNames = soundItems => dispatch => {
   for (let item of soundItems) {
     temp.add(item.category);
   }
-  categoryNames = [...temp];
-  categoryNames.push("all");
+  categoryNames = ["all", ...temp];
+  // categoryNames.push("all");
   dispatch({
     type: SET_CATEGORY_NAMES,
     categoryNames: categoryNames
