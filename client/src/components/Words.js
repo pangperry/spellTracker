@@ -82,10 +82,10 @@ class CheckboxListSecondary extends React.Component {
     currentSubcategory,
     currentCategory
   ) => {
-    if (currentCategory === "all") {
-      return [...currentWords];
-      console.log("all");
-    }
+    // if (currentCategory === "all") {
+    //   return [...currentWords];
+    //   console.log("all");
+    // }
     if (!currentWords.length) {
       console.log("no current words");
       return [];
@@ -105,6 +105,10 @@ class CheckboxListSecondary extends React.Component {
     }
     if (currentCategory) {
       console.log("current category");
+      if (currentCategory === "all") {
+        return [...currentWords];
+        console.log("all");
+      }
       return currentWords
         .slice()
         .filter(word => word.category === currentCategory);
