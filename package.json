@@ -2,7 +2,8 @@
   "name": "tracker_v2",
   "version": "1.0.0",
   "engines": {
-    "node": "12.13.0"
+    "node": "12.13.0",
+    "npm": "6.12.0"
   },
   "description": "Express and react app for tracking student words",
   "main": "server.js",
