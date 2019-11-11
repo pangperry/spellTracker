@@ -50,15 +50,15 @@ class WordCard extends React.Component {
   };
 
   handleChange = name => event => {
-    if (name === "checkedStar") {
-      let wordData = {
-        id: this.props.word._id,
-        needsWork: !this.props.word.needsWork
-      };
-      this.props.editWord(wordData, this.props.currentWords);
-    } else {
-      this.setState({ [name]: event.target.checked });
-    }
+    // if (name === "checkedStar") {
+    //   let wordData = {
+    //     id: this.props.word._id,
+    //     needsWork: !this.props.word.needsWork
+    //   };
+    //   this.props.editWord(wordData, this.props.currentWords);
+    // } else {
+    this.setState({ [name]: event.target.checked });
+    // }
   };
 
   render() {
@@ -67,7 +67,7 @@ class WordCard extends React.Component {
     return (
       <div>
         <Card className={classes.card}>
-          <CardActions className={classes.actions} disableActionSpacing>
+          {/* <CardActions className={classes.actions} disableActionSpacing>
             <Tooltip id="tooltip-icon" title="NEEDS WORK">
               <Checkbox
                 checkedIcon={<Star />}
@@ -77,7 +77,7 @@ class WordCard extends React.Component {
                 value="checkedStar"
               />
             </Tooltip>
-          </CardActions>
+          </CardActions> */}
 
           <CardHeader
             classes={{
