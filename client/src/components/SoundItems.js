@@ -58,6 +58,10 @@ class SimpleTable extends React.Component {
 
   handleClick = (e, id) => {
     e.preventDefault();
+    // TESTING OUT new UI -- TODO: refactor this click event
+    if (this.state.selectedId === id) {
+      document.getElementById("tempAdd").click();
+    }
     this.setState({ selectedId: id });
     let currentSoundItem = this.props.soundItems.filter(
       item => item._id === id

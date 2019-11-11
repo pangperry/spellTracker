@@ -9,6 +9,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { connect } from "react-redux";
 import { addWord } from "../actions/wordActions";
 
+const tempButtonStyle = {
+  display: "none"
+};
 class FormDialog extends React.Component {
   state = {
     open: false,
@@ -63,6 +66,8 @@ class FormDialog extends React.Component {
     return (
       <div>
         <Button
+          style={tempButtonStyle}
+          id="tempAdd"
           variant="outlined"
           color="primary"
           onClick={this.handleClickOpen}
