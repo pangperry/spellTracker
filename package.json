@@ -1,6 +1,9 @@
 {
   "name": "tracker_v2",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.13.0"
+  },
   "description": "Express and react app for tracking student words",
   "main": "server.js",
   "scripts": {
@@ -9,7 +12,8 @@
     "client": "npm start --prefix client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Mark Perry",
   "license": "MIT",
