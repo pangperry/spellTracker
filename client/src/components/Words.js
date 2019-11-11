@@ -153,7 +153,6 @@ class CheckboxListSecondary extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <WordsMenu />
         <Typography
           color="primary"
           className={classes.Typography}
